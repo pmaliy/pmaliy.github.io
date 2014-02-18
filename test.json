@@ -1,0 +1,9 @@
+{
+  foo: '1',
+  bar: 2,
+  step: 'lorem ipsum',
+  sayHi: function() {
+    console.log('It works!');
+    console.log(foo, this.bar, step, sayHi);
+  }
+}
