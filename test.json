@@ -1,9 +1,0 @@
-{
-  "foo": "1",
-  "bar": 2,
-  "step": "lorem ipsum",
-  "sayHi": {
-    "from": "dropbox",
-    "to": "%username%"
-  }
-}
