@@ -1,1 +1,19 @@
+.clear {
+  clear: both;
+}
+
+.img-left {
+  float: left;
+  margin-right: 9px;
+}
+
+.img-right {
+  float: right;
+  margin-left: 9px;
+}
+
+.img-medium {
+  max-height: 300px;
+  max-width: 550px;
+}
 

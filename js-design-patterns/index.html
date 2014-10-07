@@ -11,6 +11,8 @@
     <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"-->
     <!-- Bootstrap Docs -->
     <link rel="stylesheet" href="http://getbootstrap.com/assets/css/docs.min.css">
+    <!-- pm -->
+    <link rel="stylesheet" href="../css/style.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -53,123 +55,399 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
+
         <div class="col-md-9" role="main">
           <div class="bs-docs-section">
-            <h1 id="download" class="page-header">Download</h1>
-            <p class="lead">Bootstrap (currently v3.2.0) has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
-            <div class="row bs-downloads">
-              <div class="col-sm-4">
-                <h3 id="download-bootstrap">Bootstrap</h3>
-                <p>Compiled and minified CSS, JavaScript, and fonts. No docs or original source files are included.</p>
-                <p>
-                  <a href="https://github.com/twbs/bootstrap/releases/download/v3.2.0/bootstrap-3.2.0-dist.zip" class="btn btn-lg btn-outline" role="button" onclick="ga('send', 'event', 'Getting started', 'Download', 'Download compiled');">Download Bootstrap</a>
-                </p>
-              </div>
-              <div class="col-sm-4">
-                <h3 id="download-source">Source code</h3>
-                <p>Source Less, JavaScript, and font files, along with our docs. <strong>Requires a Less compiler and <a href="#grunt">some setup.</a></strong></p>
-                <p>
-                  <a href="https://github.com/twbs/bootstrap/archive/v3.2.0.zip" class="btn btn-lg btn-outline" role="button" onclick="ga('send', 'event', 'Getting started', 'Download', 'Download source');">Download source</a>
-                </p>
-              </div>
-              <div class="col-sm-4">
-                <h3 id="download-sass">Sass</h3>
-                <p><a href="https://github.com/twbs/bootstrap-sass">Bootstrap ported from Less to Sass</a> for easy inclusion in Rails, Compass, or Sass-only projects.</p>
-                <p>
-                  <a href="https://github.com/twbs/bootstrap-sass/archive/v3.2.0.tar.gz" class="btn btn-lg btn-outline" role="button" onclick="ga('send', 'event', 'Getting started', 'Download', 'Download Sass');">Download Sass</a>
-                </p>
-              </div>
-            </div>
-            <h3 id="download-cdn">Bootstrap CDN</h3>
-            <p>The folks over at <a href="http://www.maxcdn.com/">MaxCDN</a> graciously provide CDN support for Bootstrap's CSS and JavaScript. Just use these <a href="http://www.bootstrapcdn.com/">Bootstrap CDN</a> links.</p>
-            <div class="highlight">
-              <pre><code class="html"><span class="c">&lt;!-- Latest compiled and minified CSS --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;</span><span class="nt">&gt;</span>
+            <h1 id="what-is-pattern" class="page-header">Что такое паттерн?</h1>
+            <p class="lead">Паттерн (шаблон) - это реюзабельное решение, применимое к проблемам проектирования приложений, в нашем случае - при написании скриптов и приложений на JavaScript.</p>
+            <img class="img-medium img-right" src="inception.jpg" />
+            <h3 id="inception">Начало</h3>
+            <p>В 1995 Erich Gamma, Richard Helm, Ralph Johnson и John Vlissides написали книгу "Design Patterns: Elements Of Reusable Object-Oriented Software". Авторы позже стали известны как "Банда Четырех" (Gang of Four, or GoF). С выходом книги концепт паттернов начал набирать популярность, т.к. GoF удалось подробно описать некоторые техники разработки и подводные камни, с которыми сталкиваются программисты при их применении, а также представить 23 шаблона проектирования, позволяющих избежать наступания на некоторые грабли.</p>
+            <h3 id="why-patterns">Зачем оно надо?</h3>
+            <ul>
+              <li>Шаблоны - это проверенные решения: они обеспечивают твердые подходы к решению вопросов в разработке программного обеспечения, используя проверенные методы, которые отражают опыт и знания разработчиков, которые помогли определить их (что и делает их паттернами)</li>
+              <li>Шаблоны можно легко переиспользовать: они, как правило, отражают решения-из-коробки, которые могут быть адаптированы под наши собственные потребности. Эта особенность делает их весьма надежными.</li>
+              <li>Шаблоны могут быть выразительным: они имеют структуру и словарь для представленного решения, которые могут помочь выразить даже большие решения довольно элегантно.</li>
+            </ul>
+            <p>Паттерны не являются решением сами по себе. Они скорее схема решения, реализация которого в разных средах лежит на разработчиках.</p>
+            <h3 id="no-thanks">Можно и без паттернов обойтись</h3>
+            <p>Мы уже юзаем паттерны каждый день: кросбраузерные селекторы jQuery, IIFE (немедленно выполняемые функции), прототипирование JavaScript Object и многое другое - всё это паттерны проектирования.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="patterns-categories" class="page-header">Категории паттернов проектирования</h1>
+            <p class="lead">В книге GoF описано 23 паттерна проектирования. В настоящее время, спустя почти 20 лет, их количество огромно, и потому деление паттернов на категории абсолютно необходимо.</p>
+            <h3 id="how-to">Принцип деления</h3>
+            <p>Каждый шаблон фокусируется на конкретной проблеме проектирования объектно-ориентированного приложения. Он описывает, когда он применим, может ли он быть применен при прочих условиях, а также последствия его использования и необходимые компромиссы. Таким образом, категории паттернов, используемых для решения задач проектирования, перекликаются с категориями этих задач.</p>
+            <h3 id="creational">Creational Design Patterns</h3>
+            <p>Порождающие паттерны предназначены для контроля механизмов инстанцирования объектов. Их использование позволяет сделать этот процесс максимально адекватным конкретной ситуации, в которой мы работаем. К этой категории относятся паттерны Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
+            <img class="img-medium img-right" src="captaino.jpg" />
+            <h3 id="structural">Structural Design Patterns</h3>
+            <p>Структурирующие шаблоны призваны организовывать взаимоотношения между объектами. Они помогают организовать систему так, что, когда одна из ее частей меняется, это не означает что измениться должна вся система. Это обеспечивает слабую связанность (dependency) компонентов приложения, "модульность". Представителями этой категории являются Decorator, Facade, Flyweight, Adapter and Proxy.</p>
+            <h3 id="behavioral">Behavioral Design Patterns</h3>
+            <p>Поведенческие паттерны применяются для улучшения механизмов коммуникации объектов между собой. В отличие от структурирующих паттернов, которые определяют положение объектов в сиситеме, паттерны поведения определяют (что бы вы думали?) их поведение. Такими шаблонами являются Iterator, Mediator, Observer и Visitor.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="js-basics" class="page-header">Прежде чем перейти к паттернам в JavaScript...</h1>
+            <p class="lead">Паттернаы проектирования объектно-ориентированных приложений, как и сами эти приложения, строятся на концепте классов и их объектов (To the rescue!). В JavaScript, как мы знаем, классов нет. Не то чтобы это привело к фундаментальным отличиям JavaScript-шаблонов, но не помешает вернуться к основам, прежде чем нырнуть в кроличью нору.</p>
+            <h3 id="js-classes">Классы в JavaScript</h3>
+            <p>Классы можно "симулировать" с помощью функций:</p>
+            <pre>
+function Product(prefix) {
 
-<span class="c">&lt;!-- Optional theme --&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;</span><span class="nt">&gt;</span>
+  this.prefix_ = prefix;
+  this.type_ = "";
 
-<span class="c">&lt;!-- Latest compiled and minified JavaScript --&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre>
-            </div>
-            <h3 id="download-bower">Install with Bower</h3>
-            <p>Install and manage Bootstrap's Less, CSS, JavaScript, and fonts using <a href="http://bower.io">Bower</a>.</p>
-            <div class="highlight">
-              <pre><code class="bash"><span class="nv">$ </span>bower install bootstrap</code></pre>
-            </div>
+  this.setType = function(newType) {
+    this.type_ = newType;
+  };
+
+  this.type = function() {
+    return this.prefix_ + ": " + this.type_;
+  };
+
+}</pre>
+            <h3 id="js-objects">Объекты в JavaScript</h3>
+            <p>Объект класса может быть создан с помощью ключевого слова "new":</p>
+            <pre>
+var product = new Product("fruit");
+product.setType("apple");
+console.log( product.type() );  // fruit: apple</pre>
+            <p>Также можно определить так называемый object literal:</p>
+            <pre>var obj = {};</pre>
+            <p>...и объект на основе прототипа:</p>
+            <pre>Object.create( Object.prototype );</pre>
+            <p>Существует 4 способа задать объекту свойства и методы:</p>
+            <pre>
+// ECMAScript 3 compatible approaches
+ 
+// 1. Dot syntax
+
+// Set properties
+newObject.someKey = "Hello World";
+
+// Get properties
+var value = newObject.someKey;
+
+
+
+// 2. Square bracket syntax
+ 
+// Set properties
+newObject["someKey"] = "Hello World";
+ 
+// Get properties
+var value = newObject["someKey"];
+ 
+ 
+ 
+// ECMAScript 5 only compatible approaches
+// For more information see: http://kangax.github.com/es5-compat-table/
+ 
+// 3. Object.defineProperty
+ 
+// Set properties
+Object.defineProperty( newObject, "someKey", {
+  value: "for more control of the property's behavior",
+  writable: true, // false by default - разрешено ли изменять свойство
+  enumerable: true, // false by default - является ли свойство перечислимым
+  configurable: true // false by default - можно ли переопределить свойство
+});
+ 
+
+// 4. Object.defineProperties
+ 
+// Set properties
+Object.defineProperties( newObject, {
+ 
+  "someKey": {
+    value: "Hello World",
+    writable: true
+  },
+ 
+  "anotherKey": {
+    value: "Foo bar",
+    writable: false
+  }
+ 
+});
+ 
+// Getting properties for 3. and 4. can be done using any of the
+// options in 1. and 2.</pre>
+            <h3 id="get-set">Getters and setters в JavaScript</h3>
+            <p>Мало кто знает об их существовании, поэтому обычно мы используем самописные методы. Переписав класс Product с их использованием, получим такой код:</p>
+            <pre>
+function Product(prefix) {
+
+  this.prefix_ = prefix;
+  this.type_ = "";
+
+}
+
+Product.prototype = {
+
+    get type () {
+      return this.prefix_ + ": " + this.type_;
+    },
+
+    set type (newType) {
+      this.type_ = newType;
+    }
+
+};
+
+var product = new Product("fruit");
+
+product.type = "apple";
+console.log(product.type); // "fruit: apple"
+
+console.log(product.type = "orange");  // "orange"
+console.log(product.type); // "fruit: orange"</pre>
+            <h3 id="define-property">Object.defineProperty</h3>
+            <p>В предыдущем примере я определил методы не в "классе", а на его прототипе. Забегая вперед - это один из паттернов, которые мы далее рассмотрим подробнее. Как вы можете видеть, я присвоил прототипу класса object literal, что в принципе нормально, но при таком подходе мы не сможем получить цепочку прототипирования (JavaScript-вариант наследования). Для того, чтобы обойтись без object literal, используется вышеупомянутый defineProperty:</p>
+            <pre>
+function Product(prefix) {
+
+  this.prefix_ = prefix;
+  this.type_ = "";
+
+}
+
+Object.defineProperty(Product.prototype, "type", {
+
+  get: function () {
+      return this.prefix_ + ": " + this.type_;
+  },
+
+  set: function (newType) {
+    this.type_ = newType;
+  }
+
+});</pre>
+            <p>Третий аргумент defineProperty называется дескриптором свойства и позволяет контролировать его доступность:</p>
+            <pre>
+var obj = {
+    foo: "bar",
+};
+
+
+//A normal object property
+console.log(obj.foo); //logs "bar"
+
+obj.foo = "foobar";
+console.log(obj.foo); //logs "foobar"
+
+delete obj.foo;
+console.log(obj.foo); //logs undefined
+
+
+Object.defineProperty(obj, "foo", {
+    value: "bar",
+});
+
+console.log(obj.foo); //logs "bar", we were able to modify foo
+
+obj.foo = "foobar";
+console.log(obj.foo); //logs "bar", write failed silently
+
+delete obj.foo;
+console.log(obj.foo); //logs bar, delete failed silently</pre>
+            <p>В strict mode две последние попытки изменить свойство foo будут являться JavaScript errors.</p>
+            <pre>
+var obj = {};
+
+Object.defineProperty(obj, "foo", {
+    value: "bar",
+    writable: true
+});
+
+console.log(obj.foo); //logs "bar"
+obj.foo = "foobar";
+console.log(obj.foo); //logs "foobar"</pre>
+            <p>writable: true позволяет менять значение свойства.</p>
+            <pre>
+var obj = {};
+
+Object.defineProperty(obj, "foo", {
+    value: "bar",
+});
+
+
+Object.defineProperty(obj, "foo", {
+    value: "foobar",
+});
+
+// Uncaught TypeError: Cannot redefine property: foo </pre>
+            <p>configurable: false (по умолчанию) запрещает переопределение свойства через новый вызов Object.defineProperty. Если writable: false, но configurable: true, то это возможно.</p>
+            <pre>
+var i, inventory;
+
+inventory = {
+    "apples": 10
+};
+
+Object.defineProperty(inventory, "oranges", {
+    value: 13
+});
+
+Object.defineProperty(inventory, "strawberries", {
+    value: 3,
+    enumerable: true
+});
+
+for (i in inventory) {
+    console.log(i, inventory[i]);
+}
+
+console.log(inventory.propertyIsEnumerable("apples")); //logs true
+console.log(inventory.propertyIsEnumerable("oranges")); //logs false
+console.log(inventory.propertyIsEnumerable("strawberries")); //logs true
+</pre>
+            <p>Как следует из предыдущего примера, enumerable: true делает свойство перечислимым.</p>
+            <p>Тот факт, что в JavaScript массив является объектом, позволяет привести еще один яркий пример на эту тему:</p>
+            <pre>
+var arr = [3,4,9,7];
+Object.getOwnPropertyNames(arr); // все свойства
+Object.keys(arr); // только перечислимые свойства</pre>
+            <p>Это все хорошо, но перейдем к основной теме.</p>
+            <img class="img-medium" src="get-down.jpg" />
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="patterns-creational" class="page-header">Creational Design Patterns</h1>
+            <p class="lead">Как мы уже выяснили, порождающие шаблоны предназначены для решения проблем, связанных с контролем за созданием объектов. Мырассмотрим следующие паттерны:</p>
+            <ul class="lead">
+              <li>Factory Method - создает инстанс указанного класса на основе некоторых событий или переданных данных</li>
+              <li>Abstract Factory - создает объект семейства классов без указания конкретных классов</li>
+              <li>Builder - отделяет конструирование объекта от его представления, всегда создает объект определенного типа</li>
+              <li>Prototype - инициализированный инстанс, который можно использовать для копирования или клонирования</li>
+              <li>Singleton - класс с единственным инстансом и глобальными точками доступа</li>
+            </ul>
+            <h3 id="constructor">Constructor Pattern</h3>
+            <p>Это что за <span style="text-decoration: line-through;">покемон</span> паттерн, спросите вы. Единственно возможный в JavaScript способ создания объекта класса, отвечу я:</p>
+            <pre>
+function Car( model, year, miles ) {
+ 
+  this.model = model;
+  this.year = year;
+  this.miles = miles;
+ 
+  this.toString = function () {
+    return this.model + " has done " + this.miles + " miles";
+  };
+}
+ 
+var civic = new Car( "Honda Civic", 2009, 20000 );
+var focus = new Car( "Ford Focus", 2010, 5000 );
+ 
+console.log( civic.toString() );
+console.log( focus.toString() );</pre>
+            <p>Да, да, мы это уже обсуждали чуть ранее. Что тут скажешь... Помните, я утверждал, что мы уже юзаем паттерны каждый день? :)</p>
+            <p>Также мы обсуждали, что для определения свойств и методов, общих для всех объектов, лучше использовать prototype:</p>
+            <pre>
+function Car( model, year, miles ) {
+ 
+  this.model = model;
+  this.year = year;
+  this.miles = miles;
+ 
+}
+  
+Car.prototype.toString = function () {
+  return this.model + " has done " + this.miles + " miles";
+};
+ 
+var civic = new Car( "Honda Civic", 2009, 20000 );
+var focus = new Car( "Ford Focus", 2010, 5000 );
+ 
+console.log( civic.toString() );
+console.log( focus.toString() );</pre>
+            <p>В этом случае метод toString не переопределяется для каждого объекта, созданного с использованием конструктора Car. Profit!</p>
+            <h3 id="singleton">Singleton Pattern</h3>
+            <p>"Singleton" буквально переводится как "одиночка; вещь, не имеющая пары". Класс, построенный с помощью данного паттерна, ограничивает количество своих объектов до одного.</p>
+            <pre>
+var mySingleton = (function () {
+ 
+  // Instance stores a reference to the Singleton
+  var instance;
+ 
+  function init() {
+ 
+    // Singleton
+ 
+    // Private methods and variables
+    function privateMethod(){
+        console.log( "I am private" );
+    }
+ 
+    var privateVariable = "Im also private";
+ 
+    var privateRandomNumber = Math.random();
+ 
+    return {
+ 
+      // Public methods and variables
+      publicMethod: function () {
+        console.log( "The public can see me!" );
+      },
+ 
+      publicProperty: "I am also public",
+ 
+      getRandomNumber: function() {
+        return privateRandomNumber;
+      }
+ 
+    };
+ 
+  };
+ 
+  return {
+ 
+    // Get the Singleton instance if one exists
+    // or create one if it doesn't
+    getInstance: function () {
+ 
+      if ( !instance ) {
+        instance = init();
+      }
+ 
+      return instance;
+    }
+ 
+  };
+ 
+})();</pre>
+            <p>Как следует из данного примера, синглтон возвращает не класс и не объект класса, а некую структуру, содержащую public свойства и методы. На самом деле, здесь используется еще один паттерн JavaScript, известный как Module Pattern, для отделения приватных аттрибутов класса от публичных.</p>
           </div>
         </div>
+
         <div class="col-md-3">
           <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
             <ul class="nav bs-docs-sidenav">
               <li>
-                <a href="#download">Download</a>
-              </li>
-              <li>
-                <a href="#whats-included">What's included</a>
+                <a href="#what-is-pattern">Что такое паттерн?</a>
                 <ul class="nav">
-                  <li><a href="#whats-included-precompiled">Precompiled</a></li>
-                  <li><a href="#whats-included-source">Source code</a></li>
+                  <li><a href="#inception">Начало</a></li>
+                  <li><a href="#why-patterns">Зачем оно надо?</a></li>
+                  <li><a href="#no-thanks">Можно и без паттернов обойтись</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#grunt">Compiling CSS and JavaScript</a>
+                <a href="#patterns-categories">Категории паттернов проектирования</a>
                 <ul class="nav">
-                  <li><a href="#grunt-installing">Installing Grunt</a></li>
-                  <li><a href="#grunt-commands">Available Grunt commands</a></li>
-                  <li><a href="#grunt-troubleshooting">Troubleshooting</a></li>
+                  <li><a href="#inception">Принцип деления</a></li>
+                  <li><a href="#creational">Creational Design Patterns</a></li>
+                  <li><a href="#structural">Structural Design Patterns</a></li>
+                  <li><a href="#behavioral">Behavioral Design Patterns</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#template">Basic template</a>
-              </li>
-              <li>
-                <a href="#examples">Examples</a>
+                <a href="#js-basics">Прежде чем перейти к паттернам в JavaScript...</a>
                 <ul class="nav">
-                  <li><a href="#examples-framework">Using the framework</a></li>
-                  <li><a href="#examples-navbars">Navbars in action</a></li>
-                  <li><a href="#examples-custom">Custom components</a></li>
-                  <li><a href="#examples-experiments">Experiments</a></li>
+                  <li><a href="#js-classes">Классы в JavaScript</a></li>
+                  <li><a href="#js-objects">Объекты в JavaScript</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#tools">Tools</a>
-                <ul class="nav">
-                  <li><a href="#tools-bootlint">Bootlint</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#community">Community</a>
-              </li>
-              <li>
-                <a href="#disable-responsive">Disabling responsiveness</a>
-              </li>
-              <li>
-                <a href="#migration">Migrating from 2.x to 3.0</a>
-              </li>
-              <li>
-                <a href="#support">Browser and device support</a>
-                <ul class="nav">
-                  <li><a href="#support-browsers">Supported browsers</a></li>
-                  <li><a href="#support-ie8-ie9">Internet Explorer 8-9</a></li>
-                  <li><a href="#support-ie8-respondjs">IE8 and Respond.js</a></li>
-                  <li><a href="#support-ie8-box-sizing">IE8 and box-sizing</a></li>
-                  <li><a href="#support-ie8-font-face">IE8 and @font-face</a></li>
-                  <li><a href="#support-ie-compatibility-modes">IE Compatibility modes</a></li>
-                  <li><a href="#support-ie10-width">IE10 and Windows (Phone) 8</a></li>
-                  <li><a href="#support-safari-percentages">Safari percent rounding</a></li>
-                  <li><a href="#support-fixed-position-keyboards">Modals, navbars, and virtual keyboards</a></li>
-                  <li><a href="#support-browser-zooming">Browser zooming</a></li>
-                  <li><a href="#support-printing">Printer viewports</a></li>
-                  <li><a href="#support-android-stock-browser">Android stock browser</a></li>
-                  <li><a href="#support-validators">Validators</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#third-parties">Third party support</a>
-              </li>
-              <li>
-                <a href="#accessibility">Accessibility</a>
+                <a href="#patterns-creational">Creational Design Patterns</a>
               </li>
               <li>
                 <a href="#license-faqs">License FAQs</a>
@@ -183,10 +461,11 @@
             </a>
           </div>
         </div>
+
       </div>
       <hr>
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; pmaliy 2014</p>
       </footer>
     </div>
     <!-- /container -->
@@ -195,5 +474,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
   </body>
 </html>
