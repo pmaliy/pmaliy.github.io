@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>pmaliy.github.io</title>
+    <title>JavaScript Creational Design Patterns</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!-- Optional theme -->
@@ -21,7 +21,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-static-top bs-docs-nav" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -46,10 +46,10 @@
       </div>
     </div>
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron bs-docs-header">
       <div class="container">
-        <h1>Javascript Creational Design Patterns</h1>
-        <p>Порождающие шаблоны (Creational) — шаблоны проектирования, которые абстрагируют процесс инстанцирования. Они позволяют сделать систему независимой от способа создания, композиции и представления объектов. Шаблон, порождающий классы, использует наследование, чтобы изменять инстанцируемый класс, а шаблон, порождающий объекты, делегирует инстанцирование другому объекту.</p>
+        <h1>JavaScript Creational Design Patterns</h1>
+        <p>Классы и объекты в JavaScript, паттерны проектирования и их классификация, порождающие (creational) паттерны</p>
       </div>
     </div>
     <div class="container">
@@ -308,21 +308,22 @@ console.log(inventory.propertyIsEnumerable("strawberries")); //logs true
 var arr = [3,4,9,7];
 Object.getOwnPropertyNames(arr); // все свойства
 Object.keys(arr); // только перечислимые свойства</pre>
-            <p>Это все хорошо, но перейдем к основной теме.</p>
+            <p>Основы повторили, перейдем к основной теме.</p>
             <img class="img-medium" src="get-down.jpg" />
           </div>
           <div class="bs-docs-section">
             <h1 id="patterns-creational" class="page-header">Creational Design Patterns</h1>
             <p class="lead">Как мы уже выяснили, порождающие шаблоны предназначены для решения проблем, связанных с контролем за созданием объектов. Мырассмотрим следующие паттерны:</p>
             <ul class="lead">
+              <li>Constructor - отделяет конструирование объекта от его представления, всегда создает объект определенного типа</li>
+              <li>Singleton - класс с единственным инстансом и глобальными точками доступа</li>
+              <li>Prototype - инициализированный инстанс, который можно использовать для копирования или клонирования</li>
               <li>Factory Method - создает инстанс указанного класса на основе некоторых событий или переданных данных</li>
               <li>Abstract Factory - создает объект семейства классов без указания конкретных классов</li>
-              <li>Builder - отделяет конструирование объекта от его представления, всегда создает объект определенного типа</li>
-              <li>Prototype - инициализированный инстанс, который можно использовать для копирования или клонирования</li>
-              <li>Singleton - класс с единственным инстансом и глобальными точками доступа</li>
             </ul>
             <h3 id="constructor">Constructor Pattern</h3>
-            <p>Это что за <span style="text-decoration: line-through;">покемон</span> паттерн, спросите вы. Единственно возможный в JavaScript способ создания объекта класса, отвечу я:</p>
+            <p><img class="img-medium" src="constructor.jpg" /></p>
+            <p>Этот паттерн создает объекты класса. Всё. Да, и это всё.</p>
             <pre>
 function Car( model, year, miles ) {
  
@@ -340,7 +341,7 @@ var focus = new Car( "Ford Focus", 2010, 5000 );
  
 console.log( civic.toString() );
 console.log( focus.toString() );</pre>
-            <p>Да, да, мы это уже обсуждали чуть ранее. Что тут скажешь... Помните, я утверждал, что мы уже юзаем паттерны каждый день? :)</p>
+            <p>И да, мы это уже обсуждали чуть ранее. Что тут скажешь... Помните, я утверждал, что мы уже юзаем паттерны каждый день? :)</p>
             <p>Также мы обсуждали, что для определения свойств и методов, общих для всех объектов, лучше использовать prototype:</p>
             <pre>
 function Car( model, year, miles ) {
@@ -360,8 +361,9 @@ var focus = new Car( "Ford Focus", 2010, 5000 );
  
 console.log( civic.toString() );
 console.log( focus.toString() );</pre>
-            <p>В этом случае метод toString не переопределяется для каждого объекта, созданного с использованием конструктора Car. Profit!</p>
+            <p>В этом случае метод toString не переопределяется для каждого объекта, созданного с использованием конструктора Car. Profit! Мы еще вернемся к этому вопросу, когда доберемся до Prototype Pattern.</p>
             <h3 id="singleton">Singleton Pattern</h3>
+            <img class="img-medium img-right" src="singleton.jpg" />
             <p>"Singleton" буквально переводится как "одиночка; вещь, не имеющая пары". Класс, построенный с помощью данного паттерна, ограничивает количество своих объектов до одного.</p>
             <pre>
 var mySingleton = (function () {
@@ -415,7 +417,277 @@ var mySingleton = (function () {
   };
  
 })();</pre>
-            <p>Как следует из данного примера, синглтон возвращает не класс и не объект класса, а некую структуру, содержащую public свойства и методы. На самом деле, здесь используется еще один паттерн JavaScript, известный как Module Pattern, для отделения приватных аттрибутов класса от публичных.</p>
+            <p>Как следует из данного примера, синглтон возвращает не класс и не объект класса, а некую структуру, содержащую public свойства и методы. На самом деле, здесь используется еще один паттерн JavaScript, известный как Module Pattern, для отделения приватных аттрибутов класса от публичных, но это тема отдельной презентации (а то и пяти).</p>
+            <p>Для того чтобы получить объект синглтона нам не нужно использовать "new": глобальной точкой доступа является метод MySingleton.getInstance().</p>
+            <p>В книге GoF ситуация, в которой может быть применен данный паттерн, описана так:</p>
+            <ul>
+              <li>Класс должен иметь единственный инстанс, и он должен быть доступен для всех клиентов через известную точку доступа</li>
+              <li>Инстанс класса должен быть расширяемым, и клиенты должны иметь возможность получить расширенную версию инстанса без модификации их кода</li>
+            </ul>
+            <p>Во втором пункте описан вариант, когда нам может понадобиться код типа такого:</p>
+            <pre>
+mySingleton.getInstance = function(){
+  if ( this._instance == null ) {
+    if ( isFoo() ) {
+       this._instance = new FooSingleton();
+    } else {
+       this._instance = new BasicSingleton();
+    }
+  }
+  return this._instance;
+};</pre>
+            <p>Здесь getInstance становится похожим на Factory метод, благодаря чему мы не должны обновлять каждую строку кода, в которой происходит обращение к нему: FooSingleton будет расширением класса BasicSingleton с таким же интерфейсом.</p>
+            <img class="img-medium img-right" src="prototype.jpg" />
+            <h3 id="prototype">Prototype Pattern</h3>
+            <p>Паттерн "прототип" делает возможным создание объектов на основе других, уже существующих объектов.</p>
+            <p>Прототипирование как таковое не подразумевает использования классов. Тех самых классов, которых в JavaScript вообще нет. По сути мы просто создаем копии уже функционирующих объектов, которые могли быть созданы с использованием любого другого порождающего паттерна.</p>
+            <p>В отличие от классов, JavaScript поддерживает паттерны нативно, и это пожалуй единственный случай, когда нам не нужно имитировать фичи других языков.</p>
+            <pre>
+var myCar = {
+ 
+  name: "Ford Escort",
+ 
+  drive: function () {
+    console.log( "Weeee. I'm driving!" );
+  },
+ 
+  panic: function () {
+    console.log( "Wait. How do you stop this thing?" );
+  }
+ 
+};
+ 
+// Use Object.create to instantiate a new car
+var yourCar = Object.create( myCar );
+ 
+// Now we can see that one is a prototype of the other
+console.log( yourCar.name );</pre>
+            <p>Object.create создает объект, прототипом которого является первый аргумент этого метода. Второй аргумент, optionalDescriptorObjects, может содержать дескрипторы свойств, которые получит новый объект помимо унаследованных от прототипа.</p>
+            <pre>
+var vehicle = {
+  getModel: function () {
+    console.log( "The model of this vehicle is.." + this.model );
+  }
+};
+ 
+var car = Object.create(vehicle, {
+ 
+  "id": {
+    value: MY_GLOBAL.nextId(),
+    // writable:false, configurable:false by default
+    enumerable: true
+  },
+ 
+  "model": {
+    value: "Ford",
+    enumerable: true
+  }
+ 
+});</pre>
+            <p>Использование Prototype может дать хороший выигрыш в производительности аппликейшена: как уже отмечалось ранее, определение метода на прототипе означает, что все объекты на его основе будут использовать один и тот же метод, вместо того чтобы создавать свою собственную копию.</p>
+            <p>Организовать прототипирование можно и без Object.create:</p>
+            <pre>
+var vehiclePrototype = {
+ 
+  init: function ( carModel ) {
+    this.model = carModel;
+  },
+ 
+  getModel: function () {
+    console.log( "The model of this vehicle is.." + this.model);
+  }
+};
+ 
+ 
+function vehicle( model ) {
+ 
+  function F() {};
+  F.prototype = vehiclePrototype;
+ 
+  var f = new F();
+ 
+  f.init( model );
+  return f;
+ 
+}
+ 
+var car = vehicle( "Ford Escort" );
+car.getModel();</pre>
+            <p>Правда, в этом случае мы теряем возможность задавать read-only свойства, и вообще этот способ жутко похож на Сonstructor. Тем не менее, можно произвести еще один апгрейд, избавившись от hardcoded прототипа:</p>
+            <pre>
+var beget = (function () {
+ 
+    function F() {}
+ 
+    return function ( proto ) {
+        F.prototype = proto;
+        return new F();
+    };
+})();</pre>
+            <p>Коротко и со вкусом. Что же касается read-only свойств - в конце концов, всегда можно запечатать (или вообще заморозить) полученный объект, получив нужный эффект на выходе (Object.preventExtensions, Object.seal, Object.freeze - обсудим это после презентации, еслибудет время и желание).</p>
+            <img class="img-medium img-right" src="factory.jpg" />
+            <h3 id="factory">Factory Pattern</h3>
+            <p>Factory принципиально отличается от других порождающих паттернов тем, что не требует от нас явного использования конструктора. Вместо этого, Фабрика предоставляет интерфейс для создания объектов, в котором мы можем указать тип создаваемого объекта.</p>
+            <p>Когда юзать фабрику:</p>
+            <ul>
+              <li>Когда настройка объекта отличается высокой сложностью</li>
+              <li>Когда нужно легко генерировать различные инстансы объектов в зависимости от текущего окружения</li>
+              <li>Когда мы работаем с большим количеством мелких объектов с общими свойствами</li>
+              <li>Когда комбинируем объекты с инстансами других объектов, которые требуют только выполнения API-контракта (утиная типизация; уменьшает связанность)</li>
+            </ul>
+            <pre>
+// Types.js - Constructors used behind the scenes
+ 
+// A constructor for defining new cars
+function Car( options ) {
+ 
+  // some defaults
+  this.doors = options.doors || 4;
+  this.state = options.state || "brand new";
+  this.color = options.color || "silver";
+ 
+}
+ 
+// A constructor for defining new trucks
+function Truck( options){
+ 
+  this.state = options.state || "used";
+  this.wheelSize = options.wheelSize || "large";
+  this.color = options.color || "blue";
+}
+ 
+ 
+// FactoryExample.js
+ 
+// Define a skeleton vehicle factory
+function VehicleFactory() {}
+ 
+// Define the prototypes and utilities for this factory
+ 
+// Our default vehicleClass is Car
+VehicleFactory.prototype.vehicleClass = Car;
+ 
+// Our Factory method for creating new Vehicle instances
+VehicleFactory.prototype.createVehicle = function ( options ) {
+ 
+  switch(options.vehicleType){
+    case "car":
+      this.vehicleClass = Car;
+      break;
+    case "truck":
+      this.vehicleClass = Truck;
+      break;
+    //defaults to VehicleFactory.prototype.vehicleClass (Car)
+  }
+ 
+  return new this.vehicleClass( options );
+ 
+};
+ 
+// Create an instance of our factory that makes cars
+var carFactory = new VehicleFactory();
+var car = carFactory.createVehicle( {
+            vehicleType: "car",
+            color: "yellow",
+            doors: 6 } );
+ 
+// Test to confirm our car was created using the vehicleClass/prototype Car
+ 
+// Outputs: true
+console.log( car instanceof Car );
+ 
+console.log( car );</pre>
+            <p>Создание Truck с помощью VehicleFactory:</p>
+            <pre>
+var movingTruck = carFactory.createVehicle( {
+                      vehicleType: "truck",
+                      state: "like new",
+                      color: "red",
+                      wheelSize: "small" } );
+ 
+// Test to confirm our truck was created with the vehicleClass/prototype Truck
+ 
+// Outputs: true
+console.log( movingTruck instanceof Truck );
+ 
+// Outputs: Truck object of color "red", a "like new" state
+// and a "small" wheelSize
+console.log( movingTruck );</pre>
+            <p>Создание фабрики траков на основе VehicleFactory:</p>
+            <pre>
+function TruckFactory () {}
+TruckFactory.prototype = new VehicleFactory();
+TruckFactory.prototype.vehicleClass = Truck;
+ 
+var truckFactory = new TruckFactory();
+var myBigTruck = truckFactory.createVehicle( {
+                    state: "omg..so bad.",
+                    color: "pink",
+                    wheelSize: "so big" } );
+ 
+// Confirms that myBigTruck was created with the prototype Truck
+// Outputs: true
+console.log( myBigTruck instanceof Truck );
+ 
+// Outputs: Truck object with the color "pink", wheelSize "so big"
+// and state "omg. so bad"
+console.log( myBigTruck );</pre>
+            <img class="img-medium img-right" style="width: 250px;" src="dark-side.jpg" />
+            <p>Когда <span style="text-decoration:underline; font-weight: bold;">не</span> юзать фабрику? Когда процесс создания объектов и без нее достаточно прост. Темная сторона силы данного паттерна заключается в том, что он сильно усложняет простые приложения (в то время как, будучи на светлой стороне, без печенек, значительно упрощает приложения сложные).</p>
+            <p>Итого, если предоставление интерфейса для создания объектов не является целью библиотеки/фреймворка, лучше использовать другие порождающие паттерны.</p>
+            <h3 id="abstract-factory">Abstract Factory Pattern</h3>
+            <p>В примере для Фабрики VehicleFactory мы "хардкодили" два типа объектов, которые она может возвращать. Абстрактная фабрика позволяет регистрировать типы объектов, которые она может создавать, на лету:</p>
+            <pre>
+var abstractVehicleFactory = (function () {
+ 
+  // Storage for our vehicle types
+  var types = {};
+ 
+  return {
+      getVehicle: function ( type, customizations ) {
+          var Vehicle = types[type];
+ 
+          return (Vehicle ? new Vehicle(customizations) : null);
+      },
+ 
+      registerVehicle: function ( type, Vehicle ) {
+          var proto = Vehicle.prototype;
+ 
+          // only register classes that fulfill the vehicle contract
+          if ( proto.drive && proto.breakDown ) {
+              types[type] = Vehicle;
+          }
+ 
+          return abstractVehicleFactory;
+      }
+  };
+})();
+ 
+ 
+// Usage:
+ 
+abstractVehicleFactory.registerVehicle( "car", Car );
+abstractVehicleFactory.registerVehicle( "truck", Truck );
+ 
+// Instantiate a new car based on the abstract vehicle type
+var car = abstractVehicleFactory.getVehicle( "car" , {
+            color: "lime green",
+            state: "like new" } );
+ 
+// Instantiate a new truck in a similar manner
+var truck = abstractVehicleFactory.getVehicle( "truck" , {
+            wheelSize: "medium",
+            color: "neon yellow" } );</pre>
+            <p>Таким образом, абстрактная фабрика группирует несколько фабрик со схожими целями. Этот паттерн <span style="text-decoration:line-through;">можно</span> нужно использовать в ситуации, когда фабрика должна быть независима от способа создания объектов, которые она генерирует, или она должна будет работать с динамическим набором конструкторов объектов.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="conclusion" class="page-header">Заключение</h1>
+            <p class="lead">Порождающие шаблоны - это, безусловно, то, с чего стоит начать знакомство с JavaScript Design Patterns.</p>
+            <p>При подготовке презентации я в основном использовал одноименную книгу, доступную в онлайн: http://addyosmani.com/resources/essentialjsdesignpatterns/book (из нее я внаглую скопипастил почти все примеры). Отличное чтиво и для js-ninja, и для новичка. Материал в ней постоянно освежается, рассмотрено огромное количество плагинов/фреймворков в качестве примеров реализации тех или иных паттернов, присутствует список литературы (почти 40 дополнительных источников инфы). Must-read, IMHO.</p>
+            <p>Также мне очень пригодилась замечательная статья "Advanced objects in JavaScript": http://bjorn.tipling.com/advanced-objects-in-javascript - поначалу я хотел сделать ее контент темой всей презентации, но отказался от этой мысли т.к. многое вы уже скорее всего знаете.</p>
+            <p></p>
+            <p style="text-align: center;"><img src="yes-we-made-it.jpg" /></p>
+            <p class="lead" style="text-align: center;">На этом у меня всё, спасибо за внимание :)</p>
           </div>
         </div>
 
@@ -444,16 +716,22 @@ var mySingleton = (function () {
                 <ul class="nav">
                   <li><a href="#js-classes">Классы в JavaScript</a></li>
                   <li><a href="#js-objects">Объекты в JavaScript</a></li>
+                  <li><a href="#get-set">Getters and setters в JavaScript</a></li>
+                  <li><a href="#define-property">Object.defineProperty</a></li>
                 </ul>
               </li>
               <li>
                 <a href="#patterns-creational">Creational Design Patterns</a>
+                <ul class="nav">
+                  <li><a href="#constructor">Constructor Pattern</a></li>
+                  <li><a href="#singleton">Singleton Pattern</a></li>
+                  <li><a href="#prototype">Prototype Pattern</a></li>
+                  <li><a href="#factory">Factory Pattern</a></li>
+                  <li><a href="#abstract-factory">Abstract Factory Pattern</a></li>
+                </ul>
               </li>
               <li>
-                <a href="#license-faqs">License FAQs</a>
-              </li>
-              <li>
-                <a href="#translations">Translations</a>
+                <a href="#conclusion">Заключение</a>
               </li>
             </ul>
             <a class="back-to-top" href="#top">
