@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JavaScript Structural Design Patterns</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"-->
+    <!-- Bootstrap Docs -->
+    <link rel="stylesheet" href="http://getbootstrap.com/assets/css/docs.min.css">
+    <!-- pm -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-static-top bs-docs-nav" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">pmaliy.github.io</a>
+        </div>
+        <!--div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+          </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron bs-docs-header">
+      <div class="container">
+        <h1>JavaScript Structural Design Patterns</h1>
+        <p>Структурные паттерны проектирования в JavaScript</p>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+
+        <div class="col-md-9" role="main">
+          <div class="bs-docs-section">
+            <h1 id="patterns-structural" class="page-header">Brief on Structural Design Patterns</h1>
+            <p class="lead">Структурные (или структурирующие) шаблоны призваны организовывать взаимоотношения между объектами. Они помогают организовать систему так, что, когда одна из ее частей меняется, это не означает, что измениться должна вся система. Это обеспечивает слабую связанность (dependency) компонентов приложения, "модульность". Сегодня мы рассмотрим следующие паттерны этой группы:</p>
+            <ul>
+              <li>Module - специфичный для JavaScript паттерн, название которого толсто намекает на его предназначение</li>
+              <li>Adapter - приводит к соответствию интерфейсы различных классов, для того чтобы они смогли работать вместе не смотря на несовместимость интерфейсов</li>
+              <li>Bridge - отделяет интерфейс объекта от его реализации, обеспечивая возможность их изменения независимо друг от друга</li>
+              <li>Composite - структура из простых и составных объектов, которая является более чем просто суммой своих составных частей</li>
+              <li>Decorator - позволяет динамически изменять способ работы с объектами</li>
+              <li>Facade - один класс, который прячет за собой всю сложность подсистемы</li>
+              <li>Flyweight - обеспечивает эффективный обмен информацией</li>
+              <li>Proxy - служит для подмены исходного объекта</li>
+            </ul>
+            <h1 id="module" class="page-header">Module Pattern</h1>
+            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p class="lead">Объем кода в современных приложениях на JavaScript может достигать огромных значений, поэтому вопрос структурирования и организации кода стоит очень остро.</p>
+            <h3 id="iife">IIFE => Module</h3>
+            <p>Модуль - компонент приложения, его составная часть, часто являющаяся довольно самостоятельной и, что особенно важно, переиспользуемой. Обеспечение модульности приложения - основная (но не единственная) функция одноименного паттерна.</p>
+            <p>Чтобы понять, что нам может дать использование Module, нужно понимать концепт следующей функции:</p>
+            <pre>
+(function () {
+  // code
+})();</pre>
+            <p>Это так называемое IIFE, Immediately-Invoked-Function-Expression. Чтобы сделать из этого Module, немного изменим код:</p>
+            <pre>
+var Module = (function () {
+  // code
+})();</pre>
+            <h3 id="private-methods">Private methods</h3>
+            <p>Как мы знаем, в JavaScript каждая функция при вызове создает собственный контекст выполнения (scope). IIFE создает анонимный скоуп, модуль же дает ему имя. Размещая код внутри таких модулей, мы получаем возможность эмулировать приватность их методов и свойств, а также избавляемся от проблемы засорения глобального скоупа и конфликтов имен.</p>
+            <p>Зачем в JavaScript приватность? Задайте себе этот вопрос при написании приложения, которе активно обменивается данными с сервером, с помощью ajax запросов инициируя добавление или получение данных из БД, или отправляя пользовательские данные для логина через социальные сети. Приватные методы - это всё то, что вы не хотите позволить юзерам / девелоперам / хакерам увидеть / вызвать извне их скоупа.</p>
+            <pre>
+var Module = (function () {
+  
+  var privateMethod = function () {
+    // do something
+  };
+
+})();</pre>
+            <p>При попытке вызвать privateMethod вне нашего модуля произойдет ошибка - приватнее просто некуда.</p>
+            <h3 id="return">"return"</h3>
+            <p>Для создания public методов в модуле используется return. Возвращаем мы объект, методы которого станут доступны Module.</p>
+            <pre>
+var Module = (function () {
+  
+  return {
+    publicMethod: function () {
+      // code
+    }
+  };
+
+})();</pre>
+            <p>Теперь мы можем вызвать Module.publicMethod() в нужном скоупе.</p>
+            <h3 id="more-examples">More examples</h3>
+            <pre>
+var Module = (function () {
+
+  var privateMethod = function () {};
+  
+  return {
+    publicMethodOne: function () {
+      // I can call `privateMethod()` you know...
+    },
+    publicMethodtwo: function () {
+
+    },
+    publicMethodThree: function () {
+
+    }
+  };
+
+})();</pre>
+            <pre>
+var Module = (function () {
+
+  // locally scoped Object
+  var myObject = {};
+
+  // declared with `var`, must be "private"
+  var privateMethod = function () {};
+
+  myObject.someMethod = function () {
+    // take it away Mr. Public Method
+  };
+  
+  return myObject;
+
+})();</pre>
+            <pre>
+var Module = (function () {
+
+  var privateMethod = function () {};
+
+  var myObject = {
+    someMethod:  function () {
+
+    },
+    anotherMethod:  function () {
+      
+    }
+  };
+  
+  return myObject;
+
+})();</pre>
+            <h3 id="revealing-module">Revealing Module Pattern</h3>
+            <p>Существует разновидность шаблона Module, называемая Revealing Module Pattern. Рассмотрим на примере:</p>
+            <pre>
+var Module = (function () {
+
+  var privateMethod = function () {
+    // private
+  };
+
+  var someMethod = function () {
+    // public
+  };
+
+  var anotherMethod = function () {
+    // public
+  };
+  
+  return {
+    someMethod: someMethod,
+    anotherMethod: anotherMethod
+  };
+
+})();</pre>
+
+
+            <h3 id="private-methods-access">Accessing "private" methods</h3>
+            <p>В примерах выше мы не рассмотрели один очень важный момент, а именно вызов приватных методов. Исправим это досадное упущение:</p>
+            <pre>
+var Module = (function () {
+
+  var privateMethod = function (message) {
+    console.log(message);
+  };
+
+  var publicMethod = function (text) {
+    privateMethod(text);
+  };
+  
+  return {
+    publicMethod: publicMethod
+  };
+
+})();</pre>
+            <p>Точно так же можно получить доступ и к приватным свойствам:</p>
+            <pre>
+var Module = (function () {
+
+  var privateArray = [];
+
+  var publicMethod = function (somethingOfInterest) {
+    privateArray.push(somethingOfInterest);
+  };
+  
+  return {
+    publicMethod: publicMethod
+  };
+
+})();</pre>
+            <h3 id="private-methods-access">Combining Modules</h3>
+            <p>В следующем примере показано, как можно объединять (или расширять) модули:</p>
+            <pre>
+var ModuleTwo = (function (Module) {
+    
+    Module.extension = function () {
+        // another method!
+    };
+    
+    return Module;
+    
+})(Module || {});</pre>
+            <h3 id="naming-conventions">Naming Conventions</h3>
+            <p>Для того чтобы при объявлении свойств и методов модуля не начинать все имена с private / public, принято использовать "_" в качестве маркера приватности:</p>
+            <pre>
+var Module = (function () {
+
+  var _privateMethod = function () {
+    // private stuff
+  };
+
+  var publicMethod = function () {
+    _privateMethod();
+  };
+  
+  return {
+    publicMethod: publicMethod
+  };
+
+})();</pre>
+
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="conclusion" class="page-header">Заключение</h1>
+            <p class="lead">Порождающие шаблоны - это, безусловно, то, с чего стоит начать знакомство с JavaScript Design Patterns.</p>
+            <p>При подготовке презентации я в основном использовал одноименную книгу, доступную в онлайн: <a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book">JavaScript Design Patterns</a> (из нее я внаглую скопипастил почти все примеры). Отличное чтиво и для js-ninja, и для новичка. Материал в ней постоянно освежается, рассмотрено огромное количество плагинов/фреймворков в качестве примеров реализации тех или иных паттернов, присутствует список литературы (почти 40 дополнительных источников инфы). Must-read, IMHO.</p>
+            <p>Также мне очень пригодилась замечательная статья <a href="http://bjorn.tipling.com/advanced-objects-in-javascript">Advanced objects in JavaScript</a> - поначалу я хотел сделать ее контент темой всей презентации, но отказался от этой мысли т.к. многое вы уже скорее всего знаете.</p>
+            <p></p>
+            <p style="text-align: center;"><img src="yes-we-made-it.jpg" /></p>
+            <p class="lead" style="text-align: center;">На этом у меня всё, спасибо за внимание :)</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
+            <ul class="nav bs-docs-sidenav">
+              <li>
+                <a href="#what-is-pattern">Что такое паттерн?</a>
+                <ul class="nav">
+                  <li><a href="#inception">Начало</a></li>
+                  <li><a href="#why-patterns">Зачем оно надо?</a></li>
+                  <li><a href="#no-thanks">Можно и без паттернов обойтись</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#patterns-categories">Категории паттернов проектирования</a>
+                <ul class="nav">
+                  <li><a href="#inception">Принцип деления</a></li>
+                  <li><a href="#creational">Creational Design Patterns</a></li>
+                  <li><a href="#structural">Structural Design Patterns</a></li>
+                  <li><a href="#behavioral">Behavioral Design Patterns</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#js-basics">Прежде чем перейти к собственно паттернам...</a>
+                <ul class="nav">
+                  <li><a href="#js-classes">Классы в JavaScript</a></li>
+                  <li><a href="#js-objects">Объекты в JavaScript</a></li>
+                  <li><a href="#get-set">Getters and setters в JavaScript</a></li>
+                  <li><a href="#define-property">Object.defineProperty</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#patterns-creational">Creational Design Patterns</a>
+                <ul class="nav">
+                  <li><a href="#constructor">Constructor Pattern</a></li>
+                  <li><a href="#singleton">Singleton Pattern</a></li>
+                  <li><a href="#prototype">Prototype Pattern</a></li>
+                  <li><a href="#factory">Factory Pattern</a></li>
+                  <li><a href="#abstract-factory">Abstract Factory Pattern</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#conclusion">Заключение</a>
+              </li>
+            </ul>
+            <a class="back-to-top" href="#top">
+            Back to top
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+      <footer>
+        <p>&copy; pmaliy 2014</p>
+      </footer>
+    </div>
+    <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+  </body>
+</html>
