@@ -87,6 +87,7 @@
 var Module = (function () {
   // code
 })();</pre>
+            <p><img class="img-medium" src="/images/private.jpg" /></p>
             <h3 id="private-methods">Private methods</h3>
             <p>Как мы знаем, в JavaScript каждая функция при вызове создает собственный контекст выполнения (scope). IIFE создает анонимный скоуп, модуль же дает ему имя. Размещая код внутри таких модулей, мы получаем возможность эмулировать приватность их методов и свойств, а также избавляемся от проблемы засорения глобального скоупа и конфликтов имен.</p>
             <p>Зачем в JavaScript приватность? Задайте себе этот вопрос при написании приложения, которе активно обменивается данными с сервером, с помощью ajax запросов инициируя добавление или получение данных из БД, или отправляя пользовательские данные для логина через социальные сети. Приватные методы - это всё то, что вы не хотите позволить юзерам / девелоперам / хакерам увидеть / вызвать извне их скоупа.</p>
@@ -164,6 +165,7 @@ var Module = (function () {
   return myObject;
 
 })();</pre>
+            <p><img class="img-medium" src="/images/reveal.jpg" /></p>
             <h3 id="revealing-module">Revealing Module Pattern</h3>
             <p>Существует разновидность шаблона Module, называемая Revealing Module Pattern. Рассмотрим на примере:</p>
             <pre>
@@ -222,7 +224,7 @@ var Module = (function () {
   };
 
 })();</pre>
-            <h3 id="private-methods-access">Combining Modules</h3>
+            <h3 id="combining-modules">Combining Modules</h3>
             <p>В следующем примере показано, как можно объединять (или расширять) модули:</p>
             <pre>
 var ModuleTwo = (function (Module) {
@@ -258,7 +260,7 @@ var Module = (function () {
             <h1 id="adapter-and-bridge" class="page-header">Adapter and Bridge Patterns</h1>
             <p class="lead">Эти два шаблона не случайно оказались в одной секции. (Тревожная музыка) Интригует?</p>
             <h3 id="adapter">Adapter Pattern</h3>
-            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p><img class="img-medium" src="/images/adapter.jpg" /></p>
             <p>Как следует из названия, этот шаблон адаптирует (приводит к соответствию) интерфейс объекта или класса для работы в определенной системе.</p>
             <p>Таким образом, используя этот паттерн, мы позволяем таким объектам и классам, которые имеют несовместимые интерфейсы, работать вместе. Адаптер переводит вызовы своих интерфейсов в вызовы оригинальных классов или объектов.</p>
             <p>Простейшим примером применения шаблона Adapter является jQuery метод .css()</p>
@@ -274,8 +276,9 @@ $( ".container" ).css( { opacity: .5 } );
 var currentOpacity = $( ".container" ).css('opacity');</pre>
             <p>Очень простой, но очень полезный (и очень популярный) шаблон. Следующий - ровно в два раза сложнее.</p>
             <h3 id="bridge">Bridge Pattern</h3>
+            <p><img class="img-medium" src="/images/bridge.jpg" /></p>
             <p>Название этого шаблона тоже довольно "говорящее": мост он и в Африке мост. Ну, только если это не мост через Керченский пролив. В общем, Bridge применяется для отделения реализации некоторой логики от интерфейса, для того чтобы они (реализация и интерфейс) могли изменяться независимо друг от друга. Ничего не напоминает?</p>
-            <p><img class="img-medium" src="/images/module.jpg" />да это же =></p>
+            <p><img class="img-medium" src="/images/omg.jpg" /></p>
             <p>Да да, это снова он - Adapter. Вернее, два адаптера. Поэтому Bridge еще часто называют Double Adapter Pattern, по уже очевидным причинам.</p>
             <pre>
 var products = [1,2,3,4,5];
@@ -327,7 +330,7 @@ var views = new ComparisionViewsManager(lightbox, selectors);
           </div>
           <div class="bs-docs-section">
             <h1 id="composite" class="page-header">Composite Pattern</h1>
-            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p><img class="img-medium" src="/images/composite.jpg" /></p>
             <p class="lead">Данный шаблон применяется для объединения объектов в древовидные структуры для представления иерархий. Composite позволяет клиентам одинаково обращаться с объектами и их коллекциями.</p>
             <p>Применение шаблона выражается в создании объектов со свойством, содержащим примитивный элемент или их коллекцию. Каждый элемент коллекции также может содержать коллекцию, что делает Composite отличным выбором для организации работы с древовидной структурой данных.</p>
             <p>Ярким примером применения этого паттерна являются методы jQuery, на пример .addClass():</p>
@@ -344,7 +347,7 @@ $( "input" ).addClass( "active" );</pre>
           </div>
           <div class="bs-docs-section">
             <h1 id="decorator" class="page-header">Decorator Pattern</h1>
-            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p><img class="img-medium" src="/images/decorator.jpg" /></p>
             <p class="lead">Декоратор (еще одно "говорящее" название, ага) позволяет динамически добавлять к объекту новые свойства и методы ("декорировать" его). Это более гибкая альтернатива наследованию классов. Кстати о наследовании...</p>
             <h3 id="sub-classing">Sub-classing</h3>
             <p>Под sub-classing будем понимать наследование объектом свойств другого объекта (суперкласса). В ООП класс Б может расширять (extend) функциональность класса А (своего суперкласса), после чего все объекты Б будут иметь свойства А, а также новые свойства, объявленные или переопределенные в Б.</p>
@@ -377,6 +380,7 @@ var superman = new SuperHero( "Clark" ,"Kent" , ["flight","heat-vision"] );
 console.log( superman );</pre>
             <p>Таким образом, объект класса-потомка унаследовал все свойства суперкласса и получил новые: Superhero {firstName: "Clark", lastName: "Kent", gender: "male", powers: Array[2]}</p>
             <h3 id="mixins">Mixins</h3>
+            <p><img class="img-medium" src="/images/mixin.jpg" /></p>
             <p>Если возникает необходимость ghbj,htntybz объектом некоторых свойств или методов, которые не реализованы в другом классе, то на помощь приходят "миксы":</p>
             <pre>
 var myMixins = {
@@ -473,7 +477,8 @@ console.log( mb.screenSize() );</pre>
             <p>Существует подвид данного паттерна под названием Abstract Decorator - как можно догадаться из названия, он служит для добавления к объекту определенных свойств и методов без их реализации. Это может быть нужно, когда необходимо удостовериться, что некоторый объект реализует определенный интерфейс: абстрактный декоратор добавит к нему все необходимые, но не реализованные методы.</p>
           </div>
           <div class="bs-docs-section">
-            <h1 id="аacade" class="page-header">Facade</h1>
+            <h1 id="facade" class="page-header">Facade</h1>
+            <p><img class="img-medium" src="/images/facade.jpg" /></p>
             <p class="lead">Шаблоны проектирования ООП, как мы знаем, были придуманы под влиянием книги о проектировании зданий. И название следующего паттерна - Фасад - является прямой отсылкой к источнику вдохновения Банды Четырёх.</p>
             <p>Фасад здания призван скрыть всю сложность его конструкции, придать ему презентабельный вид. Той же цели служит и паттерн Facade - он скрывает за простым API сложную внутреннюю структуру приложения.</p>
             <p>Библиотека jQuery обрела популярность именно благодаря использованию фасадов: практически все методы, описанные в документации, являются частью public API, в то время как механика их работы скрыта где-то глубоко в минимизированном коде либы.</p>
@@ -515,6 +520,7 @@ bindReady: function() {
           </div>
           <div class="bs-docs-section">
             <h1 id="flyweight" class="page-header">Flyweight Pattern</h1>
+            <p><img class="img-medium" src="/images/flyweight.jpg" /></p>
             <p class="lead">Как следует из названия этого шаблона, его применение позволит изменить ваше приложение так, "чтобы летало" (буквально переводится как "легковес" и является также названием весовой категории в боксе, в честь чего собственно и был назван паттерн).</p>
             <p>Каким же образом это будет сделано? Паттерн Flyweight позволяет оптимизировать сложный медленный код, неэффективно работающий с данными. Его цель - минимизировать использование памяти приложением с помощью расшаривания как можно большего количества данных через связанные объекты (конфиги, статусы и т.п.)</p>
             <p>Первый, самый простой и очевидный пример, снова в работе с jQuery:</p>
@@ -629,6 +635,7 @@ run();
           </div>
           <div class="bs-docs-section">
             <h1 id="proxy" class="page-header">Proxy Pattern</h1>
+            <p><img class="img-medium" src="/images/proxy.png" /></p>
             <p class="lead">Название этого шаблона можно даже не переводить - прокси он и есть прокси. Как шаблон проектирования, Прокси позволяет нам контролировать доступ к объектам и контекст выполнения функций.</p>
             <p>С точки зрения реализации, при использовании Прокси мы создаем объект, который контролирует доступ к другому объекту (на пример, дергая методы оригинала на основе некоторых условий).</p>
             <p>Когда это может пригодиться? Первое что приходит в голову - смена контекста функции, передаваемой в setTimeout:</p>
@@ -732,40 +739,47 @@ http://www.dofactory.com/javascript/proxy-design-pattern
           <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
             <ul class="nav bs-docs-sidenav">
               <li>
-                <a href="#what-is-pattern">Что такое паттерн?</a>
+                <a href="#patterns-structural">Brief on Structural Design Patterns</a>
+              </li>
+              <li>
+                <a href="#module">Module Pattern</a>
                 <ul class="nav">
-                  <li><a href="#inception">Начало</a></li>
-                  <li><a href="#why-patterns">Зачем оно надо?</a></li>
-                  <li><a href="#no-thanks">Можно и без паттернов обойтись</a></li>
+                  <li><a href="#iife">IIFE => Module</a></li>
+                  <li><a href="#private-methods">Private methods</a></li>
+                  <li><a href="#return">"return"</a></li>
+                  <li><a href="#more-examples">More examples</a></li>
+                  <li><a href="#revealing-module">Revealing Module Pattern</a></li>
+                  <li><a href="#private-methods-access">Accessing "private" methods</a></li>
+                  <li><a href="#combining-modules">Combining Modules</a></li>
+                  <li><a href="#naming-conventions">Naming Conventions</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#patterns-categories">Категории паттернов проектирования</a>
+                <a href="#adapter-and-bridge">Adapter and Bridge Patterns</a>
                 <ul class="nav">
-                  <li><a href="#inception">Принцип деления</a></li>
-                  <li><a href="#creational">Creational Design Patterns</a></li>
-                  <li><a href="#structural">Structural Design Patterns</a></li>
-                  <li><a href="#behavioral">Behavioral Design Patterns</a></li>
+                  <li><a href="#adapter">Adapter Pattern</a></li>
+                  <li><a href="#bridge">Bridge Pattern</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#js-basics">Прежде чем перейти к собственно паттернам...</a>
+                <a href="#composite">Composite Pattern</a>
+              </li>
+              <li>
+                <a href="#decorator">Decorator Pattern</a>
                 <ul class="nav">
-                  <li><a href="#js-classes">Классы в JavaScript</a></li>
-                  <li><a href="#js-objects">Объекты в JavaScript</a></li>
-                  <li><a href="#get-set">Getters and setters в JavaScript</a></li>
-                  <li><a href="#define-property">Object.defineProperty</a></li>
+                  <li><a href="#sub-classing">Sub-classing</a></li>
+                  <li><a href="#mixins">Mixins</a></li>
+                  <li><a href="#decorator-itself">Decorator</a></li>
                 </ul>
               </li>
               <li>
-                <a href="#patterns-creational">Creational Design Patterns</a>
-                <ul class="nav">
-                  <li><a href="#constructor">Constructor Pattern</a></li>
-                  <li><a href="#singleton">Singleton Pattern</a></li>
-                  <li><a href="#prototype">Prototype Pattern</a></li>
-                  <li><a href="#factory">Factory Pattern</a></li>
-                  <li><a href="#abstract-factory">Abstract Factory Pattern</a></li>
-                </ul>
+                <a href="#facade">Facade</a>
+              </li>
+              <li>
+                <a href="#flyweight">Flyweight Pattern</a>
+              </li>
+              <li>
+                <a href="#proxy">Proxy Pattern</a>
               </li>
               <li>
                 <a href="#conclusion">Заключение</a>
