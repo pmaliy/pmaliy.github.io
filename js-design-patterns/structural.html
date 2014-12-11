@@ -52,17 +52,17 @@
         <p>Структурные паттерны проектирования в JavaScript</p>
       </div>
     </div>
-    <div class="container">
+    <div class="container jdp">
       <!-- Example row of columns -->
       <div class="row">
 
-        <div class="col-md-9" role="main">
+        <div class="col-md-10" role="main">
           <div class="bs-docs-section">
             <h1 id="patterns-structural" class="page-header">Brief on Structural Design Patterns</h1>
             <p class="lead">Структурные (или структурирующие) шаблоны призваны организовывать взаимоотношения между объектами. Они помогают организовать систему так, что, когда одна из ее частей меняется, это не означает, что измениться должна вся система. Это обеспечивает слабую связанность (dependency) компонентов приложения, "модульность". Сегодня мы рассмотрим следующие паттерны этой группы:</p>
             <ul>
               <li>Module - специфичный для JavaScript паттерн, название которого толсто намекает на его предназначение</li>
-              <li>Adapter - приводит к соответствию интерфейсы различных классов, для того чтобы они смогли работать вместе не смотря на несовместимость интерфейсов</li>
+              <li>Adapter - приводит к соответствию интерфейсы различных классов, для того чтобы они смогли работать вместе не смотря на изначальную несовместимость</li>
               <li>Bridge - отделяет интерфейс объекта от его реализации, обеспечивая возможность их изменения независимо друг от друга</li>
               <li>Composite - структура из простых и составных объектов, которая является более чем просто суммой своих составных частей</li>
               <li>Decorator - позволяет динамически изменять способ работы с объектами</li>
@@ -70,6 +70,8 @@
               <li>Flyweight - обеспечивает эффективный обмен информацией</li>
               <li>Proxy - служит для подмены исходного объекта</li>
             </ul>
+          </div>
+          <div class="bs-docs-section">
             <h1 id="module" class="page-header">Module Pattern</h1>
             <p><img class="img-medium" src="/images/module.jpg" /></p>
             <p class="lead">Объем кода в современных приложениях на JavaScript может достигать огромных значений, поэтому вопрос структурирования и организации кода стоит очень остро.</p>
@@ -250,20 +252,483 @@ var Module = (function () {
   };
 
 })();</pre>
+            <p>С Модулем разобрались, перейдем к другим паттернам.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="adapter-and-bridge" class="page-header">Adapter and Bridge Patterns</h1>
+            <p class="lead">Эти два шаблона не случайно оказались в одной секции. (Тревожная музыка) Интригует?</p>
+            <h3 id="adapter">Adapter Pattern</h3>
+            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p>Как следует из названия, этот шаблон адаптирует (приводит к соответствию) интерфейс объекта или класса для работы в определенной системе.</p>
+            <p>Таким образом, используя этот паттерн, мы позволяем таким объектам и классам, которые имеют несовместимые интерфейсы, работать вместе. Адаптер переводит вызовы своих интерфейсов в вызовы оригинальных классов или объектов.</p>
+            <p>Простейшим примером применения шаблона Adapter является jQuery метод .css()</p>
+            <pre>
+// Cross browser opacity:
+// opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+
+// filter: alpha(opacity=90);  IE6-IE8
+ 
+// Setting opacity
+$( ".container" ).css( { opacity: .5 } );
+ 
+// Getting opacity
+var currentOpacity = $( ".container" ).css('opacity');</pre>
+            <p>Очень простой, но очень полезный (и очень популярный) шаблон. Следующий - ровно в два раза сложнее.</p>
+            <h3 id="bridge">Bridge Pattern</h3>
+            <p>Название этого шаблона тоже довольно "говорящее": мост он и в Африке мост. Ну, только если это не мост через Керченский пролив. В общем, Bridge применяется для отделения реализации некоторой логики от интерфейса, для того чтобы они (реализация и интерфейс) могли изменяться независимо друг от друга. Ничего не напоминает?</p>
+            <p><img class="img-medium" src="/images/module.jpg" />да это же =></p>
+            <p>Да да, это снова он - Adapter. Вернее, два адаптера. Поэтому Bridge еще часто называют Double Adapter Pattern, по уже очевидным причинам.</p>
+            <pre>
+var products = [1,2,3,4,5];
 
+// Logic
+
+var ComparisionList = function() {
+  var list = [];
+  this.get = function() { return list.slice(); }
+  this.add = function(prod) { list.push( prod ); }
+  this.remove = function(prod) { list.splice( list.indexOf( prod ), 1 ); }
+};
+
+var ComparisionLightbox = function() {
+  this.list = [];
+  this.add = function(i) { this.list.push( products[i] ); }
+  this.remove = function(i) { this.list.splice( this.list.indexOf( products[i] ), 1 ); }
+};
+
+// Interfaces
+
+var ComparisionSelectorsManager = function(list) {
+  this.list = list;
+
+  this.comparisionAllowed = false;
+  this.check = function(i) { list.add( products[i] ); if( 1 < list.get().length ) this.lightboxAllowed = true;  }
+  this.uncheck = function(i) { list.remove( products[i] );  }
+}
+
+var ComparisionViewsManager = function(lightbox, selectors) {
+  this.lightbox = lightbox;
+
+  this.show = function() {
+    if( selectors.comparisionAllowed )
+      $('#lightbox').empty().append( '<span>' + this.lightbox.list.join('</span>&nbsp;<span>') + '</span>' ).show();
+  }
+  this.hide = function() { $('#lightbox').hide(); }
+  this.removeFromList = function(i) { selectors.uncheck(i); }
+}
+
+// Logic
+var list = new ComparisionList();
+var lightbox = new ComparisionLightbox();
+// Interfaces
+var selectors = new ComparisionSelectorsManager(list);
+var views = new ComparisionViewsManager(lightbox, selectors);
+</pre>
+            <p>В данном примере selectors - прослойка между логикой list и интерфейсом views, а views - между логикой lightbox и интерфейсом selectors. Возможны и другие вариации Моста, на пример два отдельных адаптера между парами логика-интерфейс (list-selectors и lightbox-views) плюс адаптер между двумя интерфейсами (selectors-syncronizer-views).</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="composite" class="page-header">Composite Pattern</h1>
+            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p class="lead">Данный шаблон применяется для объединения объектов в древовидные структуры для представления иерархий. Composite позволяет клиентам одинаково обращаться с объектами и их коллекциями.</p>
+            <p>Применение шаблона выражается в создании объектов со свойством, содержащим примитивный элемент или их коллекцию. Каждый элемент коллекции также может содержать коллекцию, что делает Composite отличным выбором для организации работы с древовидной структурой данных.</p>
+            <p>Ярким примером применения этого паттерна являются методы jQuery, на пример .addClass():</p>
+            <pre>
+// Single elements
+$( "#singleItem" ).addClass( "active" );
+$( "#container" ).addClass( "active" );
+ 
+// Collections of elements
+$( "div" ).addClass( "active" );
+$( ".item" ).addClass( "active" );
+$( "input" ).addClass( "active" );</pre>
+            <p>Фактически, селектор jQuery всегда возвращает коллекцию (иногда состоящую из одного элемента), что и позволяет нам не задумываться о количестве элементов в ней.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="decorator" class="page-header">Decorator Pattern</h1>
+            <p><img class="img-medium" src="/images/module.jpg" /></p>
+            <p class="lead">Декоратор (еще одно "говорящее" название, ага) позволяет динамически добавлять к объекту новые свойства и методы ("декорировать" его). Это более гибкая альтернатива наследованию классов. Кстати о наследовании...</p>
+            <h3 id="sub-classing">Sub-classing</h3>
+            <p>Под sub-classing будем понимать наследование объектом свойств другого объекта (суперкласса). В ООП класс Б может расширять (extend) функциональность класса А (своего суперкласса), после чего все объекты Б будут иметь свойства А, а также новые свойства, объявленные или переопределенные в Б.</p>
+            <pre>
+var Person =  function( firstName , lastName ){
+ 
+  this.firstName = firstName;
+  this.lastName =  lastName;
+  this.gender = "male";
+ 
+};
+// a new instance of Person can then easily be created as follows:
+var clark = new Person( "Clark" , "Kent" );
+ 
+// Define a subclass constructor for for "Superhero":
+var SuperHero = function( firstName, lastName , powers ){
+ 
+    // Invoke the superclass constructor on the new object
+    // then use .call() to invoke the constructor as a method of
+    // the object to be initialized.
+ 
+    Person.call( this, firstName, lastName );
+ 
+    // Finally, store their powers, a new array of traits not found in a normal "Person"
+    this.powers = powers;
+};
+ 
+SuperHero.prototype = Object.create( Person.prototype );
+var superman = new SuperHero( "Clark" ,"Kent" , ["flight","heat-vision"] );
+console.log( superman );</pre>
+            <p>Таким образом, объект класса-потомка унаследовал все свойства суперкласса и получил новые: Superhero {firstName: "Clark", lastName: "Kent", gender: "male", powers: Array[2]}</p>
+            <h3 id="mixins">Mixins</h3>
+            <p>Если возникает необходимость ghbj,htntybz объектом некоторых свойств или методов, которые не реализованы в другом классе, то на помощь приходят "миксы":</p>
+            <pre>
+var myMixins = {
+ 
+  moveUp: function(){
+    console.log( "move up" );
+  },
+ 
+  moveDown: function(){
+    console.log( "move down" );
+  },
+ 
+  stop: function(){
+    console.log( "stop!" );
+  }
+ 
+};
+
+// A skeleton carAnimator constructor
+function CarAnimator(){
+  this.moveLeft = function(){
+    console.log( "move left" );
+  };
+}
+ 
+// A skeleton personAnimator constructor
+function PersonAnimator(){
+  this.moveRandomly = function(){ /*..*/ };
+}
+ 
+// Extend both constructors with our Mixin
+_.extend( CarAnimator.prototype, myMixins );
+_.extend( PersonAnimator.prototype, myMixins );
+ 
+// Create a new instance of carAnimator
+var myAnimator = new CarAnimator();
+myAnimator.moveLeft();
+myAnimator.moveDown();
+myAnimator.stop();</pre>
+            <p>Они также позволяют реализовать "множественное наследование", поочередно улучшая объект несколькими миксами.</p>
+            <h3 id="decorator-itself">Decorator</h3>
+            <p>Шаблон Декоратор служит для динамического применения миксов к объектам в процессе работы приложения. Идея заключается в том, что функционал, добавляемый декоратором, не является необходимым для базового класса (и поэтому не является частью суперкласса), однако дочерним классам (некоторым) этот функционал нужно обеспечить.</p>
+            <p>Декорирующий класс никак не привязан к способу, которым был создан объект декорирования, что позволяет работать с объектами совершенно разных классов и избавляет разработчиков от необходимости создавать километровые цепочки наследования.</p>
+            <pre>
+// The constructor to decorate
+function MacBook() {
+ 
+  this.cost = function () { return 997; };
+  this.screenSize = function () { return 11.6; };
+ 
+}
+ 
+// Decorator 1
+function memory( macbook ) { 
+ 
+  var v = macbook.cost();
+  macbook.cost = function() {
+    return v + 75;
+  };
+ 
+}
+ 
+// Decorator 2
+function engraving( macbook ){
+ 
+  var v = macbook.cost();
+  macbook.cost = function(){
+    return  v + 200;
+  };
+ 
+}
+ 
+// Decorator 3
+function insurance( macbook ){
+ 
+  var v = macbook.cost();
+  macbook.cost = function(){
+     return  v + 250;
+  };
+ 
+}
+ 
+var mb = new MacBook(); 
+memory( mb ); 
+engraving( mb );
+insurance( mb );
+ 
+// Outputs: 1522
+console.log( mb.cost() );
+ 
+// Outputs: 11.6
+console.log( mb.screenSize() );</pre>
+            <p>Как видим, к одному объекту может быть применено несколько декораторов, что значительно упрощает "наследование".</p>
+            <p>Существует подвид данного паттерна под названием Abstract Decorator - как можно догадаться из названия, он служит для добавления к объекту определенных свойств и методов без их реализации. Это может быть нужно, когда необходимо удостовериться, что некоторый объект реализует определенный интерфейс: абстрактный декоратор добавит к нему все необходимые, но не реализованные методы.</p>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="аacade" class="page-header">Facade</h1>
+            <p class="lead">Шаблоны проектирования ООП, как мы знаем, были придуманы под влиянием книги о проектировании зданий. И название следующего паттерна - Фасад - является прямой отсылкой к источнику вдохновения Банды Четырёх.</p>
+            <p>Фасад здания призван скрыть всю сложность его конструкции, придать ему презентабельный вид. Той же цели служит и паттерн Facade - он скрывает за простым API сложную внутреннюю структуру приложения.</p>
+            <p>Библиотека jQuery обрела популярность именно благодаря использованию фасадов: практически все методы, описанные в документации, являются частью public API, в то время как механика их работы скрыта где-то глубоко в минимизированном коде либы.</p>
+            <p>Из того что мы обсудили сегодня, можно сделать вывод, что Фасад - это, по сути, "прокачанная" версия Адаптера, призванная сделать совместимыми интерфейсы клиента и логики приложения.</p>
+            <p>Нужно больше <del>золота</del>примеров!</p>
+            <pre>
+var addMyEvent = function( el,ev,fn ){
+ 
+   if( el.addEventListener ){
+            el.addEventListener( ev,fn, false );
+      }else if(el.attachEvent){
+            el.attachEvent( "on" + ev, fn );
+      } else{
+           el["on" + ev] = fn;
+    }
+ 
+};</pre>
+            <p>(А можно было просто скопипастить кусок кода jQuery)</p>
+            <pre>
+// $(document).ready(..)
+
+bindReady: function() {
+    ...
+    if ( document.addEventListener ) {
+      // Use the handy event callback
+      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+ 
+      // A fallback to window.onload, that will always work
+      window.addEventListener( "load", jQuery.ready, false );
+ 
+    // If IE event model is used
+    } else if ( document.attachEvent ) {
+ 
+      document.attachEvent( "onreadystatechange", DOMContentLoaded );
+ 
+      // A fallback to window.onload, that will always work
+      window.attachEvent( "onload", jQuery.ready );
+               ...</pre>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="flyweight" class="page-header">Flyweight Pattern</h1>
+            <p class="lead">Как следует из названия этого шаблона, его применение позволит изменить ваше приложение так, "чтобы летало" (буквально переводится как "легковес" и является также названием весовой категории в боксе, в честь чего собственно и был назван паттерн).</p>
+            <p>Каким же образом это будет сделано? Паттерн Flyweight позволяет оптимизировать сложный медленный код, неэффективно работающий с данными. Его цель - минимизировать использование памяти приложением с помощью расшаривания как можно большего количества данных через связанные объекты (конфиги, статусы и т.п.)</p>
+            <p>Первый, самый простой и очевидный пример, снова в работе с jQuery:</p>
+            <pre>
+// HOLY SH*T
+
+$('.gallery .item').removeClass('active');
+$('.gallery .item').eq(0).addClass('active');
+$('.gallery .item').on('click', function() {
+  /* ... */
+});
+
+
+// Well, this works, but still...
+
+$('.gallery .item').removeClass('active').on('click', function() {
+  /* ... */
+}).eq(0).addClass('active');
+
+// Flyweight
+
+var
+  $gallery = $('.gallery),
+  $items = $gallery.find('.item');
+
+$items.removeClass('active');
+$items[0].addClass('active');
+$gallery.on('click', '.item', function() {
+  /* ... */
+});
+</pre>
+            <p>Если пересчитать количество вызовов $() и прикинуть количество созданных event listeners в каждом варианте, то выхлоп от применения Flyweight становится очевидным. Однако его применение не ограничивается лишь работой с DOM:</p>
+            <pre>
+function Flyweight (make, model, processor) {
+    this.make = make;
+    this.model = model;
+    this.processor = processor;
+};
+ 
+var FlyWeightFactory = (function () {
+    var flyweights = {};
+ 
+    return {
+ 
+        get: function (make, model, processor) {
+            if (!flyweights[make + model]) {
+                flyweights[make + model] = 
+                    new Flyweight(make, model, processor);
+            }
+            return flyweights[make + model];
+        },
+ 
+        getCount: function () {
+            var count = 0;
+            for (var f in flyweights) count++;
+            return count;
+        }
+    }
+})();
+ 
+function ComputerCollection () {
+    var computers = {};
+    var count = 0;
+ 
+    return {
+        add: function (make, model, processor, memory, tag) {
+            computers[tag] = 
+                new Computer(make, model, processor, memory, tag);
+            count++;
+        },
+ 
+        get: function (tag) {
+            return computers[tag];
+        },
+ 
+        getCount: function () {
+            return count;
+        }
+    };
+}
+ 
+var Computer = function (make, model, processor, memory, tag) {
+    this.flyweight = FlyWeightFactory.get(make, model, processor);
+    this.memory = memory;
+    this.tag = tag;
+    this.getMake = function () {
+        return this.flyweight.make;
+    }
+    // ...
+}
+
+function run() {
+    var computers = new ComputerCollection();
+    
+    computers.add("Dell", "Studio XPS", "Intel", "5G", "Y755P");
+    computers.add("Dell", "Studio XPS", "Intel", "6G", "X997T");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "U8U80");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "NT777");
+    computers.add("Dell", "Studio XPS", "Intel", "2G", "0J88A");
+    computers.add("HP", "Envy", "Intel", "4G", "CNU883701");
+    computers.add("HP", "Envy", "Intel", "2G", "TXU003283");
+ 
+    console.log("Computers: " + computers.getCount());
+    console.log("Flyweights: " + FlyWeightFactory.getCount());
+}
+
+run();
+// Computers: 7
+// Flyweights: 2 
+
+</pre>
+          </div>
+          <div class="bs-docs-section">
+            <h1 id="proxy" class="page-header">Proxy Pattern</h1>
+            <p class="lead">Название этого шаблона можно даже не переводить - прокси он и есть прокси. Как шаблон проектирования, Прокси позволяет нам контролировать доступ к объектам и контекст выполнения функций.</p>
+            <p>С точки зрения реализации, при использовании Прокси мы создаем объект, который контролирует доступ к другому объекту (на пример, дергая методы оригинала на основе некоторых условий).</p>
+            <p>Когда это может пригодиться? Первое что приходит в голову - смена контекста функции, передаваемой в setTimeout:</p>
+            <pre>
+// Fail. Epic Fail.
+
+$( "button" ).on( "click", function () {
+  setTimeout(function () {
+    // "this" doesn't refer to our element!
+    // It refers to window
+    $( this ).addClass( "active" );
+  });
+});
+
+// Fix
+
+$( "button" ).on( "click", function () {
+ 
+    setTimeout( $.proxy( function () {
+        // "this" now refers to our element as we wanted
+        $( this ).addClass( "active" );
+    }, this), 500);
+ 
+    // the last "this" we're passing tells $.proxy() that our DOM element
+    // is the value we want "this" to refer to.
+});
+</pre>
+            <p>"WAT? Опять jQuery?" Ну... не опять, а снова. Того же эффекта мы могли достигнуть используя .call или .apply (что и делает jQuery.proxy() - вспоминая Фасад).</p>
+            <p>Еще одна ситуация, в которой Прокси засияет во всей красе - при активном использовании ajax в нашем приложении: когда нетерпеливый клиент тыцкает кнопочки не дожидаясь загрузки всего контента, нам нужно <del>подложить свинью</del> подставить объект котрый будет отвечать ему "узбагойся!" пока аяксовый запрос не вернет нам реальные данные.</p>
+            <p>Еще один случай прямо-таки кричащий о необходимости использовать Proxy - организация логирования обращений к свойствам или методам объекта. Наверняка все мы сталкивались с проблемой поиска <del>зарытой собаки</del> места вызова методов или изменения свойств некоторого объекта в большом объеме кода. Давайте попробуем облегчить себе эту задачу:</p>
+            <pre>
+// logging target
+
+var obj = {
+  a: 1,
+  f: function(){
+    this.a++
+  }
+}
+
+obj.a;
+obj.f();
+obj.a;
+obj.f();
+obj.f();
+obj.a;
+
+function proxy(o, n) {
+  var
+    proxied = {},
+    target = n ? n + '.' : '';
+  for(var prop in o) {
+    (function(prop) {
+      if( 'function' === typeof o[prop] ) {
+        proxied[prop] = function() {
+          console.log('calling ' + target + prop + '()');
+          return o[prop]();
+        }
+      } else {
+        Object.defineProperty(proxied, prop, {
+          get: function() {
+            console.log('getting ' + target + prop);
+            return o[prop];
+          },
+          set: function(val) {
+            console.log('setting ' + target + prop);
+            o[prop] = val;
+          }
+        });
+      }
+    }(prop));
+  }
+  return proxied;
+}
+
+obj = proxy(obj, 'obj');
+
+obj.a;
+obj.f();
+obj.a;
+obj.f();
+obj.f();
+obj.a;
+</pre>
+            <p>Данная функция позволяет логгировать изменение свойств объекта и вызов его методов, но только на одном уровне. С небольшими изменениями (а именно с внедрением рекурсии) она же даст возможность следить за работой объекта любой сложности, но суть вы уже уловили.</p>
           </div>
           <div class="bs-docs-section">
             <h1 id="conclusion" class="page-header">Заключение</h1>
-            <p class="lead">Порождающие шаблоны - это, безусловно, то, с чего стоит начать знакомство с JavaScript Design Patterns.</p>
-            <p>При подготовке презентации я в основном использовал одноименную книгу, доступную в онлайн: <a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book">JavaScript Design Patterns</a> (из нее я внаглую скопипастил почти все примеры). Отличное чтиво и для js-ninja, и для новичка. Материал в ней постоянно освежается, рассмотрено огромное количество плагинов/фреймворков в качестве примеров реализации тех или иных паттернов, присутствует список литературы (почти 40 дополнительных источников инфы). Must-read, IMHO.</p>
-            <p>Также мне очень пригодилась замечательная статья <a href="http://bjorn.tipling.com/advanced-objects-in-javascript">Advanced objects in JavaScript</a> - поначалу я хотел сделать ее контент темой всей презентации, но отказался от этой мысли т.к. многое вы уже скорее всего знаете.</p>
+            <p class="lead">Знание и понимание структурных шаблонов - это нобходимое (но не достаточное) условие разработки больших приложений на JavaScript, которые не будут повергать в трепет команду саппорта и не превращаются в монстров Франкенштейна при попытке скейлинга.</p>
+            <p>При подготовке этой презентации, как и прошлой, я в основном использовал доступную в онлайн книгу <a href="http://addyosmani.com/resources/essentialjsdesignpatterns/book">JavaScript Design Patterns</a> (из нее я внаглую скопипастил почти все примеры). Отличное чтиво и для js-ninja, и для новичка. Материал в ней постоянно освежается, рассмотрено огромное количество плагинов/фреймворков в качестве примеров реализации тех или иных паттернов, присутствует список литературы (почти 40 дополнительных источников инфы). Must-read, IMHO.</p>
+            <p>Также мне очень пригодилась замечательная статья <a href="http://bjorn.tipling.com/advanced-objects-in-javascript">Advanced objects in JavaScript</a> - я уже упоминал ее в предыдущем докладе, но сегодня еще и нашел реальное применение геттерам и сеттерам, о существовании которых в JavaScript я узнал именно оттуда.</p>
+http://www.dofactory.com/javascript/proxy-design-pattern
+            <p>Новинка сегодняшнего дня - гайды по JavaScript Design Patterns на <a href="http://www.dofactory.com/javascript/design-patterns">dofactory.com</a>: доходчивое объяснение и замечательные примеры. Юзайте на здоровье.</p>
             <p></p>
             <p style="text-align: center;"><img src="yes-we-made-it.jpg" /></p>
             <p class="lead" style="text-align: center;">На этом у меня всё, спасибо за внимание :)</p>
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
             <ul class="nav bs-docs-sidenav">
               <li>
