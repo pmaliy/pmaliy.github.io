@@ -44,6 +44,30 @@ a:hover {
   box-shadow: 2px 2px 3px #999;
 }
 
+.row {
+  margin: 0px -15px;
+}
+
+.row .half,
+.row .third,
+.row .quater {
+  float: left;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.half {
+  width: 50%;
+}
+
+.third {
+  width: 33.33333%;
+}
+
+.quater {
+  width: 25%;
+}
+
 /* Header */
 .top-line {
   height: 50px;
