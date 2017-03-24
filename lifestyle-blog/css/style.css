@@ -8,7 +8,7 @@ body, figure, h3, p, ul, li, a {
 
 /* General */
 body {
-  background: #ddd;
+  background: #e5e5e5;
   color: #444;
 }
 
@@ -187,10 +187,6 @@ a:hover {
 }
 
 /* Horizontal preview */
-body {
-  margin-top: 20px;
-}
-
 .preview-horizontal img,
 .preview-horizontal .intro {
   display: inline-block;
