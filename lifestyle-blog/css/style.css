@@ -1,0 +1,265 @@
+/* Reset */
+body, figure, h3, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+/* General */
+body {
+  background: #ddd;
+  color: #444;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+a {
+  color: #444;
+}
+
+a:hover {
+  color: orange;
+}
+
+.underline {
+  position: relative;
+  border-bottom: 1px solid grey;
+}
+
+.underline::after {
+  content: '';
+  display: block;
+  width: 30%;
+  position: absolute;
+  bottom: -1px;
+  border-bottom: 2px solid orange;
+}
+
+.style-box {
+  background: #fff;
+  box-shadow: 2px 2px 3px #999;
+}
+
+/* Header */
+.top-line {
+  height: 50px;
+  line-height: 50px;
+  box-shadow: 0 0 2px #999;
+  text-align: center;
+}
+
+.top-line .search-btn,
+.top-line .submit-btn {
+  display: block;
+  float: left;
+  padding: 0 12px;
+  border-left: solid 1px #bbb;
+}
+
+.top-line .submit-btn {
+  border-right: solid 1px #bbb;
+}
+
+.top-line .top-menu {
+  display: inline-block;
+}
+
+.top-line .top-menu .menu-item {
+  display: block;
+  float: left;
+}
+
+.top-line .top-menu .menu-item a {
+  display: block;
+  margin: 0 8px;
+}
+
+.top-line .social-links {
+  float: right;
+}
+
+.top-line .social-links .social-btn {
+  display: block;
+  float: left;
+  border-left: solid 1px #bbb;
+}
+
+.top-line .social-links .social-btn:last-child {
+  border-right: solid 1px #bbb;
+}
+
+.top-line .social-links .social-btn a {
+  display: block;
+  width: 36px;
+}
+
+/* Gallery */
+.gallery,
+.gallery .gallery-wrapper,
+.gallery .gallery-wrapper img {
+  max-width: 100%;
+}
+
+.gallery .gallery-wrapper {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.gallery-item {
+  position: relative;
+  float: left;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  display: block;
+}
+
+.gallery-item.collapsed {
+  width: 10%;
+  cursor: pointer;
+}
+
+.gallery-item.collapsed img {
+  max-width: none;
+  width: 800%;
+  margin-left: -350%;
+}
+
+.gallery-item.collapsed::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #eee;
+  opacity: 0.85;
+}
+
+.gallery-item.collapsed:hover {
+  z-index: 1;
+  box-shadow: 0 0 7px black;
+}
+
+.gallery-item.collapsed:hover::after {
+  opacity: 0.5;
+}
+
+.gallery-item.expanded {
+  width: 80%;
+}
+
+/* Gallery navigation */
+.gallery-nav {
+  margin-top: 4px;
+  position: relative;
+  top: -28px;
+  border-bottom: 1px solid grey;
+  line-height: 28px;
+  text-align: justify;
+  text-transform: uppercase;
+}
+
+.gallery-nav::after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+.gallery-nav-item {
+  position: relative;
+  top: 28px;
+  display: inline-block;
+  padding-right: 40px;
+  border-bottom: 2px solid orange;
+  margin-bottom: -1px;
+}
+
+.gallery-nav-item.underline::after {
+  display: none;
+}
+
+/* Horizontal preview */
+body {
+  margin-top: 20px;
+}
+
+.preview-horizontal img,
+.preview-horizontal .intro {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.preview-horizontal img {
+  width: 30%;
+}
+
+.preview-horizontal .intro {
+  box-sizing: border-box;
+  padding: 5px 2%;
+  width: 70%;
+}
+
+.preview-horizontal .intro .title,
+.preview-horizontal .intro .info {
+  text-transform: uppercase;
+}
+
+.preview-horizontal .intro .title {
+  margin-bottom: 10px;
+}
+
+.preview-horizontal .intro .info {
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+}
+
+.preview-horizontal .intro .info.underline::after {
+  width: 40%;
+}
+
+.preview-horizontal .intro .text {
+  text-align: justify;
+  margin-bottom: 22px;
+}
+
+.preview-horizontal .intro .controls {
+  overflow: hidden;
+  line-height: 32px;
+}
+
+.preview-horizontal .intro .controls .read-more {
+  float: left;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.preview-horizontal .intro .controls .social-links {
+  float: right;
+  display: block;
+  border: solid 1px #444;
+  overflow: hidden;
+}
+
+.preview-horizontal .intro .controls .social-links .social-btn {
+  float: left;
+  border-right: solid 1px #444;
+}
+
+.preview-horizontal .intro .controls .social-links .social-btn:last-child {
+  float: left;
+  border-right: none;
+}
+
+.preview-horizontal .intro .controls .social-links .social-btn a {
+  display: block;
+  width: 28px;
+  text-align: center;
+}
