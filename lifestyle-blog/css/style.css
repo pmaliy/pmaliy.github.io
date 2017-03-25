@@ -1,16 +1,19 @@
 /* General */
 body {
-  background: #e5e5e5;
+  background: #eee;
   color: #444;
 }
 
 .container {
-  max-width: 1170px;
   margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 1200px;
+  padding: 0 15px;
 }
 
 a {
   color: #444;
+  text-decoration: none;
 }
 
 a:hover {
