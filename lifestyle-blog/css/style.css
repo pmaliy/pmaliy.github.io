@@ -11,23 +11,20 @@ a {
 }
 
 a:hover {
-  color: orange;
+  color: #feb79b;
 }
 
 h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-.container {
-  margin: 0 auto;
-  box-sizing: border-box;
-  max-width: 1170px;
-  min-width: 700px;
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-.main.container > * {
-  margin: 20px 0;
-}
+/* Decoration */
 
 .underline {
   position: relative;
@@ -40,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 30%;
   position: absolute;
   bottom: -1px;
-  border-bottom: 2px solid orange;
+  border-bottom: 2px solid #feb79b;
 }
 
 .style-box {
@@ -48,11 +45,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 2px 2px 3px #999;
 }
 
-.clearfix::after {
-  content: '';
-  display: block;
-  clear: both;
-}
+/* Columns */
 
 .row {
   margin: 0px -15px;
@@ -77,6 +70,76 @@ h1, h2, h3, h4, h5, h6 {
 
 .quater {
   width: 25%;
+}
+
+/* Layout */
+.container {
+  margin: 0 auto;
+  box-sizing: border-box;
+  max-width: 1170px;
+  min-width: 700px;
+}
+
+.main.container > * {
+  margin: 20px 0;
+}
+
+/* Buttons */
+.btn,
+.btn-inverse {
+  display: inline-block;
+  border: solid 1px #feb79b;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  background: #feb79b;
+  color: #fff;
+}
+
+.btn:hover,
+.btn-inverse {
+  border-color: inherit;
+  background: transparent;
+  color: inherit;
+}
+
+.btn-inverse:hover {
+  background: #feb79b;
+  color: #fff;
+}
+
+/* Controls */
+
+.controls {
+  overflow: hidden;
+  line-height: 32px;
+}
+
+.controls .read-more {
+  float: left;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.controls .social-links {
+  float: right;
+  display: block;
+  border: solid 1px #444;
+  overflow: hidden;
+}
+
+.controls .social-links .social-btn {
+  float: left;
+  border-right: solid 1px #444;
+}
+
+.controls .social-links .social-btn:last-child {
+  border-right: none;
+}
+
+.controls .social-links .social-btn a {
+  display: block;
+  width: 28px;
+  text-align: center;
 }
 
 /* Header */
@@ -214,7 +277,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-right: 40px;
   position: relative;
   top: 28px;
-  border-bottom: 2px solid orange;
+  border-bottom: 2px solid #feb79b;
   margin-bottom: -1px;
 }
 
@@ -259,6 +322,35 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+.recent-post img {
+  display: block;
+  width: 100%;
+}
+
+.recent-post .inner {
+  padding: 25px 2%;
+}
+
+/* Vertical preview */
+.preview-vertical-container.row {
+  margin-right: -1.5%;
+  margin-left: -1.5%;
+}
+
+.preview-vertical-container.row .half {
+  padding-right: 1.5%;
+  padding-left: 1.5%;
+}
+
+.preview-vertical img {
+  width: 100%;
+}
+
+.preview-vertical .intro {
+  padding: 6% 5%;
+}
+
+
 
 /* Horizontal preview */
 .preview-horizontal img,
@@ -273,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .preview-horizontal .intro {
   box-sizing: border-box;
-  padding: 5px 2%;
+  padding: 8px 2%;
   width: 70%;
 }
 
@@ -297,39 +389,6 @@ h1, h2, h3, h4, h5, h6 {
 .preview-horizontal .intro .text {
   text-align: justify;
   margin-bottom: 22px;
-}
-
-.preview-horizontal .intro .controls {
-  overflow: hidden;
-  line-height: 32px;
-}
-
-.preview-horizontal .intro .controls .read-more {
-  float: left;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.preview-horizontal .intro .controls .social-links {
-  float: right;
-  display: block;
-  border: solid 1px #444;
-  overflow: hidden;
-}
-
-.preview-horizontal .intro .controls .social-links .social-btn {
-  float: left;
-  border-right: solid 1px #444;
-}
-
-.preview-horizontal .intro .controls .social-links .social-btn:last-child {
-  border-right: none;
-}
-
-.preview-horizontal .intro .controls .social-links .social-btn a {
-  display: block;
-  width: 28px;
-  text-align: center;
 }
 
 .form-search {
