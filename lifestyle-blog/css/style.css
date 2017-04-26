@@ -340,13 +340,29 @@ h3 {
   position: relative;
 }
 
-.gallery-instagram.row {
+.gallery-instagram .gallery-item.row {
   margin-left: 0;
   margin-right: 0;
 }
 
-.gallery-instagram.row .quater {
+.gallery-instagram .gallery-item.row .quater {
   padding: 0;
+}
+
+.gallery-instagram .gallery-control {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 4%;
+  text-align: center;
+}
+
+.gallery-instagram .gallery-control.gallery-control-prev {
+  left: 0;
+}
+
+.gallery-instagram .gallery-control.gallery-control-next {
+  right: 0;
 }
 
 /* Sidebar */
