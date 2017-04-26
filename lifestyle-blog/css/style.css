@@ -302,7 +302,6 @@ h3 {
 
 .gallery-nav {
   margin-top: 4px;
-  margin-bottom: -28px;
   position: relative;
   top: -28px;
   border-bottom: 1px solid grey;
@@ -318,15 +317,15 @@ h3 {
 }
 
 .gallery-nav-item {
-  display: inline-block;
-  padding-right: 40px;
   position: relative;
   top: 28px;
-  border-bottom: 2px solid #feb79b;
+  display: inline-block;
+  padding-right: 40px;
+  border-bottom: 2px solid orange;
   margin-bottom: -1px;
 }
 
-.gallery-nav-item.underlined::after {
+.gallery-nav-item.underline::after {
   display: none;
 }
 
