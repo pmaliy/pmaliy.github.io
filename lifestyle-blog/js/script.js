@@ -46,10 +46,10 @@ function createAccordeon($gallery) {
     // в % анимация отказывается работать адекватно)
     
     $gallery.css({
-      width: galleryWidth;
+      width: galleryWidth
     });
     $galleryItemsContainer.css({
-      width: galleryWidth + 10;
+      width: galleryWidth + 10
     });
     $galleryItems.css({
       height: galleryHeight
