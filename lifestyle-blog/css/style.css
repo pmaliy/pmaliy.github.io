@@ -335,24 +335,27 @@ h3 {
 
 /* Instagram gallery */
 
-.gallery-instagram {
+.gallery-instagram,
+.gallery-instagram .gallery-items,
+.gallery-instagram .gallery-item {
   position: relative;
 }
 
-.gallery-instagram .gallery-item.row {
-  margin-left: 0;
-  margin-right: 0;
+.gallery-instagram .gallery-item {
+  width: 100%;
 }
 
-.gallery-instagram .gallery-item.row .quater {
-  padding: 0;
+.gallery-instagram .gallery-item img {
+  display: block;
+  width: 25%;
+  float: left;
 }
 
 .gallery-instagram .gallery-control {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 4%;
+  width: 3%;
   text-align: center;
 }
 
