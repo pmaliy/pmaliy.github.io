@@ -235,6 +235,6 @@ function createGallery($gallery) {
   });
 }
 
-createAccordeon($('.gallery'));
-// createGallery($('.gallery'));
+createAccordeon($('.gallery-accordeon'));
+createGallery($('.gallery-instagram'));
 // createGallery($('.gallery-wide'));
