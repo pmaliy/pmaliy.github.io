@@ -9,7 +9,8 @@
 function createAccordeon($gallery) {
   var
     GALLERY_ANIMATION_DURATION = 800,
-    $galleryItems = $gallery.find('.gallery-item'),
+    $galleryItemsContainer = $gallery.find('.gallery-items'),
+    $galleryItems = $galleryItemsContainer.find('.gallery-item'),
     $galleryItemsImages = $galleryItems.find('img'),
     $galleryItemsOverlays = $galleryItems.find('.gallery-item-ovelay'),
     // объединяем в одну коллекцию всё, к чему
@@ -22,7 +23,8 @@ function createAccordeon($gallery) {
     // потому что ниже нам понадобится использовать размеры
     // элементов для вычислений, а этот метод возвращает
     // число (в пикселях), а не строку.
-    galleryItemsHeight = $galleryItems.height(),
+    galleryHeight = $gallery.height(),
+    galleryWidth = $gallery.width(),
     galleryItemsExpandedWidth = $galleryItems.filter('.expanded').width(),
     galleryItemsExpandedImageShift = 0,
     galleryItemsExpandedOverlayOpacity = 0,
@@ -34,19 +36,26 @@ function createAccordeon($gallery) {
   $galleryNavItems.eq(currentIndex).addClass('active');
   
   function applyInlineCSS() {
-    galleryItemsHeight = $galleryItems.height();
+    galleryHeight = $galleryItemsContainer.height();
+    galleryWidth = $galleryItemsContainer.width() + 5;
     galleryItemsExpandedWidth = $galleryItems.filter('.expanded').width();
-    galleryItemsExpandedImageShift = 0;
     galleryItemsCollapsedWidth = $galleryItems.filter('.collapsed').width();
     galleryItemsCollapsedImageShift = ((galleryItemsCollapsedWidth - galleryItemsExpandedWidth) / 2);
     
     // задаем начальные стили галереи В ПИКСЕЛЯХ (с размерами
     // в % анимация отказывается работать адекватно)
+    
+    $gallery.css({
+      width: galleryWidth;
+    });
+    $galleryItemsContainer.css({
+      width: galleryWidth + 10;
+    });
     $galleryItems.css({
-      height: galleryItemsHeight
+      height: galleryHeight
     });
     $galleryItemsImages.css({
-      height: galleryItemsHeight,
+      height: galleryHeight,
       width: galleryItemsExpandedWidth
     });
     $galleryItemsImages.filter('.expanded img').css({
@@ -86,6 +95,27 @@ function createAccordeon($gallery) {
     // 1. css-свойства которые нужно изменить
     // 2. опции (нас интересует "queue: false" - отключение очереди)
     // желаемые размеры картинок задаем В ПИКСЕЛЯХ
+    $next.animate({
+      width: galleryItemsExpandedWidth
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
+    $nextImage.animate({
+      marginLeft: galleryItemsExpandedImageShift
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
+    $nextOverlay.animate({
+      opacity: galleryItemsExpandedOverlayOpacity
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
     $current.animate({
       width: galleryItemsCollapsedWidth
     }, {
@@ -102,27 +132,6 @@ function createAccordeon($gallery) {
     
     $currentOverlay.animate({
       opacity: galleryItemsCollapsedOverlayOpacity
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-    
-        $next.animate({
-      width: galleryItemsExpandedWidth
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-    
-    $nextImage.animate({
-      marginLeft: galleryItemsExpandedImageShift
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-    
-    $nextOverlay.animate({
-      opacity: galleryItemsExpandedOverlayOpacity
     }, {
       duration: GALLERY_ANIMATION_DURATION,
       queue: false,
