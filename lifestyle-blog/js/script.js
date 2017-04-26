@@ -15,7 +15,11 @@ function createAccordeon($gallery) {
     $galleryItemsOverlays = $galleryItems.find('.gallery-item-ovelay'),
     // объединяем в одну коллекцию всё, к чему
     // будем применять анимацию
-    $galleryAnimationSubjects = $galleryItems.add($galleryItemsImages).add($galleryItemsOverlays),
+    $galleryAnimationSubjects = $gallery
+      .add($galleryItemsContainer)
+      .add($galleryItems)
+      .add($galleryItemsImages)
+      .add($galleryItemsOverlays),
     $galleryNavItems = $gallery.find('.gallery-nav-item'),
     currentIndex = $galleryItems.filter('.expanded').index(),
     inAnimation = false,
