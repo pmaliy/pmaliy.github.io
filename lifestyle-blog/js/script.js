@@ -86,27 +86,6 @@ function createAccordeon($gallery) {
     // 1. css-свойства которые нужно изменить
     // 2. опции (нас интересует "queue: false" - отключение очереди)
     // желаемые размеры картинок задаем В ПИКСЕЛЯХ
-    $next.animate({
-      width: galleryItemsExpandedWidth
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-    
-    $nextImage.animate({
-      marginLeft: galleryItemsExpandedImageShift
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-    
-    $nextOverlay.animate({
-      opacity: galleryItemsExpandedOverlayOpacity
-    }, {
-      duration: GALLERY_ANIMATION_DURATION,
-      queue: false
-    });
-
     $current.animate({
       width: galleryItemsCollapsedWidth
     }, {
@@ -123,6 +102,27 @@ function createAccordeon($gallery) {
     
     $currentOverlay.animate({
       opacity: galleryItemsCollapsedOverlayOpacity
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
+        $next.animate({
+      width: galleryItemsExpandedWidth
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
+    $nextImage.animate({
+      marginLeft: galleryItemsExpandedImageShift
+    }, {
+      duration: GALLERY_ANIMATION_DURATION,
+      queue: false
+    });
+    
+    $nextOverlay.animate({
+      opacity: galleryItemsExpandedOverlayOpacity
     }, {
       duration: GALLERY_ANIMATION_DURATION,
       queue: false,
