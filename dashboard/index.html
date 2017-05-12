@@ -1,12 +1,119 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <pre>
-$.ajax({
-  url: 'https://sandbox-4bd39.firebaseio.com/messages.json',
-  method: 'post',
-  data: '{"user": "pm", "message": "omg it works", "timestamp": {".sv": "timestamp"}}',
-  success: data => console.log(data)
-})
-    </pre>
-  </body>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="app">
+  <aside class="app-sidebar">
+    <div class="logo">
+      Logo
+    </div>
+    <ul class="app-nav">
+      <li>Board</li>
+      <li>Projects</li>
+      <li>Settings</li>
+      <li>Upgrade</li>
+      <li>Logout</li>
+    </ul>
+  </aside>
+  <div class="app-main">
+    <header class="app-header clearfix">
+      <button class="btn app-red app-rounded app-reload">Re</button>
+      <span class="app-rounded">Dashboard</span>
+      <button class="btn app-green app-rounded">Bot</button>
+      <span class="app-rounded">5 users online</span>
+    </header>
+    <div class="page">
+      <header class="page-header clearfix">
+        <ul class="tabs">
+          <li class="tab tab-projects tab-active">Active Projects</li>
+          <li class="tab tab-messenger">Messenger</li>
+        </ul>
+        <form class="app-search">
+          <input class="app-invisible" type="text" placeholder="Search project, user, task, etc." />
+        </form>
+      </header>
+      <div class="content">
+        <aside class="page-sidebar-wrapper">
+          <div class="page-sidebar list activity-list">
+            <ul class="list-inner">
+              <li>Activity 1</li>
+              <li>Activity 2</li>
+              <li>Activity 3</li>
+              <li>Activity 4</li>
+              <li>Activity 5</li>
+              <li>Activity 6</li>
+              <li>Activity 7</li>
+              <li>Activity 8</li>
+              <li>Activity 9</li>
+            </ul>
+          </div>
+        </aside>
+        <div class="page-main-wrapper">
+          <div class="page-main">
+            <div class="list projects-list">
+              <div class="list-header">
+                <div class="app-search app-invisible"></div>
+                <span class="app-rounded">New Projects (descending)</span>
+                <button class="btn app-green app-rounded">+</button>
+              </div>
+              <ul class="list-inner">
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+                <li>
+                  <p><span class="app-red app-squared">23%</span> Create contact formular</p>
+                  <span class="app-rounded">Panorama</span>
+                  <button class="btn app-rounded">M</button>
+                  <button class="btn app-rounded">Bot</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
