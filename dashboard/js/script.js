@@ -6,3 +6,6 @@ $.ajax({
   success: data => console.log(data)
 })
 */
+
+// CSS tabs
+// https://codepen.io/anon/pen/GmBEjV?editors=1100
