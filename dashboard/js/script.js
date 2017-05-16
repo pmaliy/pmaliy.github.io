@@ -8,4 +8,4 @@ $.ajax({
 */
 
 // CSS tabs
-// https://codepen.io/anon/pen/GmBEjV?editors=1100
+// https://codepen.io/anon/pen/GmBXQm?editors=1100
