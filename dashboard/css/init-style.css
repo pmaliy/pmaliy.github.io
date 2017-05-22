@@ -1,0 +1,138 @@
+/* App globals */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+  background: #fff;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+button {
+  border: none;
+}
+
+.btn {
+  border: solid 1px #d0d0d0;
+}
+
+.app-red {
+  background: #fd5243;
+}
+
+.app-green {
+  background: #acca56;
+}
+
+.app-invisible {
+  background: transparent;
+  border: none;
+}
+
+.app-search input {
+  display: inline-block;
+  width: 300px;
+  font-size: inherit;
+}
+
+/* Layout */
+
+.app-sidebar,
+.app-main {
+  height: 100%;
+}
+
+.app-sidebar {
+  width: 110px;
+  float: left;
+  background: #293035;
+}
+
+.app-main {
+  margin-left: 110px;
+  overflow: hidden;
+}
+
+.app-header {
+  height: 90px;
+  border-bottom: solid 1px #d0d0d0;
+  line-height: 90px;
+  background: #f1f1f1;
+}
+
+.page {
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 90px;
+  margin-top: -90px;
+}
+
+.page-header {
+  height: 80px;
+  border-bottom: solid 1px #d0d0d0;
+  line-height: 80px;
+  background: #f1f1f1;
+}
+
+.content {
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 80px;
+  margin-top: -80px;
+}
+
+.page-sidebar-wrapper,
+.page-main-wrapper {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+}
+
+.page-sidebar-wrapper {
+  width: 400px;
+  padding-left: 0;
+  float: right;
+}
+
+.page-main-wrapper {
+  margin-right: 400px;
+}
+
+.page-sidebar,
+.page-main {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+  border: solid 1px #d0d0d0;
+  overflow: auto;
+}
+
+/* Page */
+
+.tabs,
+.tab {
+  height: 100%;
+  float: left;
+}
+
+.tab {
+  padding: 0 18px;
+  border-right: solid 1px #d0d0d0;
+}
+
+.tab.tab-active {
+  border-bottom: solid 1px #fff;
+  margin-bottom: -1px;
+  background: #fff;
+}
+
+.page-header .app-search {
+  height: 100%;
+  float: right;
+}
