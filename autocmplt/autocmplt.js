@@ -119,7 +119,7 @@
         if (!gotMatch) {
           showOptionElement(noMatchElement);
         }
-      } // handleInputKeyUp
+      } // handleInputKeyUp()
       
       const handleOptionClick = (e) => {        
         if (e.target !== noMatchElement) {
@@ -128,7 +128,7 @@
 
         inputElement.focus();
         hideOptionsElement();
-      } // handleOptionClick
+      } // handleOptionClick()
 
       // listeners
       inputElement.addEventListener('focus', handleInputKeyUp);
