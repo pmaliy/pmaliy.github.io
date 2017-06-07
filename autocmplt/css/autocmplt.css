@@ -1,7 +1,14 @@
+.autocmplt-wrapper {
+  position: relative;
+}
+
 .autocmplt-list {
   position: absolute;
+  top: 100%;
+  left: 0;
   border: solid 1px #bbb;
   background: #fff;
+  z-index: 999;
 }
 
 .autocmplt-list-item {
@@ -11,4 +18,12 @@
 .autocmplt-list-item:hover {
   background: #ccc;
   cursor: default;
+}
+
+.autocmplt-list-item span {
+  background: yellow;
+}
+
+.autocmplt-hidden {
+  display: none !important;
 }
