@@ -1,143 +1,174 @@
 (function() {
+  const
+    WRAPPER_CLASSNAME = 'autocmplt-wrapper',
+    LIST_CLASSNAME = 'autocmplt-list',
+    LIST_ITEM_CLASSNAME = 'autocmplt-list-item',
+    HIDDEN_CLASSNAME = 'autocmplt-hidden',
+    MAX_ITEMS = 5;
+
+  // DOM Element decorator
+  const enhanceElement = (element) => {
+    return Object.assign(element, {
+      hasClass(className) {
+        return this.className.indexOf(className || null) >= 0;
+      },
+      addClass(className) {
+        if (!this.hasClass(className)) {
+          this.className += ' ' + className;
+        }
+      },
+      removeClass(className) {
+        this.className = this.className.replace(className, '');
+      },
+      show() {
+        this.removeClass(HIDDEN_CLASSNAME);
+      },
+      hide() {
+        this.addClass(HIDDEN_CLASSNAME);
+      }
+    });
+  }
   
-  let autocmplt = (elementSelector, options) => {
-    const
-      LIST_CLASSNAME = 'autocmplt-list',
-      LIST_ITEM_CLASSNAME = 'autocmplt-list-item',
-      MAX_ITEMS = 5;
-    
-    // generators
-    const generateOptionsElement = (optionsMap) => {
-      let optionsElement = document.createElement('ul');
-      optionsElement.className = LIST_CLASSNAME;
-      
-      
-      Object.keys(optionsMap).map(key => {
-        optionsElement.appendChild(optionsMap[key]);
-      });
-      
-      return optionsElement;
-    };
-    
-    const generateOptionsMap = (optsList) => {
-      return Object.keys(optsList).reduce((map, key) => {
-        map[ optsList[key] ] = generateOptionElement(optsList[key]);
-        
-        return map;
-      }, {});
-    }; // generateOptionsMap()
-    
-    const generateOptionElement = (opt) => {
-      let optionElement = document.createElement('li');
-      optionElement.className = LIST_ITEM_CLASSNAME;
-      optionElement.innerHTML = opt;
-      optionElement.setAttribute('data-value', opt);
-      
-      return optionElement;
-    }
-    
-    // init
-    const init = () => {
-      let
-        inputElement = document.querySelector(elementSelector),
-        optionsMap = generateOptionsMap(options);
+  // function execution delayer
+  const delay = (func) => {
+    return () => setTimeout(func, 200);
+  }
 
-      if (!inputElement || !Object.keys(optionsMap).length) return;
-      
-      let
-        optionsElement = generateOptionsElement(optionsMap),
+  // generators
+  const generateOptionsElement = (data) => {
+    let optionsElement = enhanceElement(document.createElement('ul'));
+
+    optionsElement.addClass(LIST_CLASSNAME);
+
+    data.map(item => {
+      optionsElement.appendChild(item.element);
+    });
+
+    return optionsElement;
+  };
+
+  const generateOptionElement = (value) => {
+    let optionElement = enhanceElement(document.createElement('li'));
+    optionElement.addClass(LIST_ITEM_CLASSNAME);
+    optionElement.innerHTML = value;
+    optionElement.setAttribute('data-value', value);
+
+    return optionElement;
+  }; // generateOptionElement
+
+  const generateOptionsData = (list) => {
+    let
+      val = '',
+      data = Object.keys(list).reduce((data, key) => {
+        val = list[key].trim();
+
+        data.push({
+          key: val.toLowerCase(),
+          value: val,
+          element: generateOptionElement(val)
+        });
+
+        return data;
+      }, []);
+
+    // sort alphabetically
+    return data.sort((a, b) => a.value > b.value ? 1 : -1);
+  }; // generateOptionsData()
+  
+  // core
+  const autocmplt = (elementSelector, options) => {
+    const inputElements = document.querySelectorAll(elementSelector);
+    if (!inputElements.length) return;
+    
+    const init = (element) => {
+      const
+        inputElement = enhanceElement(element),
+        wrapperElement = enhanceElement(document.createElement('div'));
+
+      // wrap input
+      wrapperElement.addClass(WRAPPER_CLASSNAME);
+      inputElement.parentNode.insertBefore(wrapperElement, inputElement);
+      wrapperElement.appendChild(inputElement);
+
+      const optionsData = generateOptionsData(options);
+      if (!optionsData.length) return;
+
+      const
+        optionsElement = generateOptionsElement(optionsData),
         noMatchElement = generateOptionElement('No match');
-      
-      // insert elements
-      optionsElement.appendChild(noMatchElement);
-      inputElement.parentNode.insertBefore(optionsElement, inputElement.nextSibling);
-      
-      // get default display styles for toggling
-      const
-        LIST_DISPLAY = optionsElement.style.display,
-        LIST_ITEM_DISPLAY = document.querySelector('.' + LIST_ITEM_CLASSNAME).style.display;
-      
-      // hide elements
-      optionsElement.style.display = 'none';
-      noMatchElement.style.display = 'none';
-      
-      // set options list width based on input width
-      const
-        inputElementRect = inputElement.getBoundingClientRect(),
-        inputElementWidth = inputElementRect.right - inputElementRect.left;
-      optionsElement.style.width = inputElementWidth + 'px';
 
-      // helpers
-      const
-        showOptionsElement = () => {
-          optionsElement.style.display = LIST_DISPLAY;
-        },
-        hideOptionsElement = () => {
-          optionsElement.style.display = 'none';
-        },
-        showOptionElement = (el) => {
-          el.style.display = LIST_ITEM_DISPLAY;
-        },
-        hideOptionElement = (el) => {
-          el.style.display = 'none';
-        },
-        delay = (func) => {
-          return () => {
-            setTimeout(func, 100);
-          };
-        };
-      
+      // insert options
+      optionsElement.appendChild(noMatchElement);
+      wrapperElement.insertBefore(optionsElement, inputElement.nextSibling);
+
+      // hide elements
+      optionsElement.hide();
+      noMatchElement.hide();
+
       // handlers
       const handleInputKeyUp = (e) => {
         // TODO: handle arrow keys
         // console.log(e.keyCode || e.which);
-        
-        showOptionsElement();
-        
+
+        optionsElement.show();
+
         let
           search = inputElement.value.toLowerCase(),
-          counter = 0;
-          gotMatch = false;
-        
-        hideOptionElement(noMatchElement);
-        
-        if (!search) {
-          hideOptionsElement();
-          return;
-        }
-        
-        for(let key in optionsMap) {
-          if (key.toLowerCase().indexOf(search) >= 0 && counter < MAX_ITEMS) {
-            showOptionElement(optionsMap[key]);
+          counter = 0,
+          gotMatch = false,
+          regexp = null;
+
+        noMatchElement.hide();
+
+        optionsData.map(item => {
+          // remove highlighting
+          item.element.innerHTML = item.value;
+
+          if (
+            item.key.indexOf(search) >= 0
+            &&
+            (counter < MAX_ITEMS || !search)
+          ) {
+            // highlight what's found
+            if (search) {
+              regexp = new RegExp('(' + search + ')', 'i');
+              item.element.innerHTML = item.value.replace(regexp, '<span>$1</span>');
+            }
+
+            item.element.show();
             gotMatch = true;
             counter++;
           } else {
-            hideOptionElement(optionsMap[key]);
+            item.element.hide();
           }
-        }
-        
+        });
+
         if (!gotMatch) {
-          showOptionElement(noMatchElement);
+          noMatchElement.show();
         }
-      } // handleInputKeyUp()
-      
-      const handleOptionClick = (e) => {        
+      }; // handleInputKeyUp()
+
+      const handleOptionClick = (e) => {
         if (e.target !== noMatchElement) {
-          inputElement.value = e.target.dataset.value;
+          const target = e.target.dataset.value ?
+            e.target : // click on option itself
+            e.target.parentNode; // click on child span
+
+          inputElement.value = target.dataset.value;
         }
 
         inputElement.focus();
-        hideOptionsElement();
-      } // handleOptionClick()
+        optionsElement.hide();
+      }; // handleOptionClick()
 
       // listeners
       inputElement.addEventListener('focus', handleInputKeyUp);
-      inputElement.addEventListener('blur', delay(hideOptionsElement));
+      inputElement.addEventListener('blur', delay(() => optionsElement.hide()));
       inputElement.addEventListener('keyup', handleInputKeyUp);
       optionsElement.addEventListener('click', handleOptionClick);
-    }; // init()
-
-    init();
+    }
+    
+    [...inputElements].map(element => init(element));
   }; // autocmplt()
   
   window.autocmplt = autocmplt;
