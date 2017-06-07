@@ -1,10 +1,10 @@
 (function() {
   if (!autocmplt) return;
   
-  const httpRequest = new XMLHttpRequest();
-  httpRequest.onload = () => {
-    autocmplt('.autocmplt', JSON.parse(httpRequest.responseText));
+  const countriesRequest = new XMLHttpRequest();
+  countriesRequest.onload = () => {
+    autocmplt('.country-autocomplete', JSON.parse(countriesRequest.responseText));
   };
-  httpRequest.open('get', 'data/countries.json');
-  httpRequest.send();
+  countriesRequest.open('get', 'data/countries.json');
+  countriesRequest.send();
 })();
