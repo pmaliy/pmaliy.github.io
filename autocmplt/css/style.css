@@ -1,44 +1,86 @@
-p {
-  margin: 0;
-  padding: 0;
+form {
+  width: 30%;
 }
 
-input[type=text] {
+.fieldset {
+  width: 100%;
+  margin: 7px 0;
+}
+
+.fieldset:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+label,
+input[type=text],
+.autocmplt-wrapper,
+.autocmplt-list,
+.autocmplt-list-item {
   box-sizing: border-box;
-  padding: 4px 6px;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-style: solid;
+  border-width: 0;
+  border-color: #aaa;
   outline: none;
-  border: solid 2px #aaa;
-  border-radius: 5px;
+  background: #fff;
   font: 14px Verdana, Arial, Helvetica, sans-serif;
 }
 
-input[type=text]:focus {
+label,
+input[type=text] {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.fieldset label,
+.fieldset label + * {
+  display: inline-block;
+}
+
+.fieldset label {
+  width: 160px;
+  border-color: transparent;
+}
+
+.fieldset label + * {
+  width: 300px;
+}
+
+input[type=text],
+.autocmplt-list-item {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+input[type=text]:focus,
+.autocmplt-list,
+.autocmplt-list-item {
   border-color: #aae;
 }
 
 .autocmplt-list,
 .autocmplt-list-item {
-  display: block;
-  margin: 0;
-  padding: 0;
   border-radius: 0 0 5px 5px;
   list-style: none;
-  font: 14px Verdana, Arial, Helvetica, sans-serif;
 }
 
 .autocmplt-list {
-  box-sizing: border-box;
   margin-top: -5px;
   padding-top: 3px;
-  border-style: solid;
   border-width: 0 2px 2px 2px;
-  border-color: #aae;
-  background: #fff;
 }
 
 .autocmplt-list-item {
-  border-top: solid 1px #aae;
-  padding: 2px 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-top-width: 1px;
   background: #f5f5ff;
 }
 
