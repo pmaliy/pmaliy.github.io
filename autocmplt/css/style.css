@@ -1,0 +1,17 @@
+p {
+  margin: 0;
+  padding: 0;
+}
+
+input[type=text] {
+  box-sizing: border-box;
+  padding: 4px 6px;
+  outline: none;
+  border: solid 2px #aaa;
+  border-radius: 5px;
+  font: 14px Verdana, Arial, Helvetica, sans-serif;
+}
+
+input[type=text]:focus {
+  border-color: #aae;
+}
