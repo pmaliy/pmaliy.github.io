@@ -1,0 +1,32 @@
+.autocmplt-list,
+.autocmplt-list-item {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 14px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.autocmplt-list {
+  box-sizing: border-box;
+  position: absolute;
+  margin-top: -5px;
+  padding-top: 3px;
+  border-style: solid;
+  border-color: #aae;
+  border-width: 0 2px 2px 2px;
+  border-radius: 0 0 5px 5px;
+  background: #fff;
+}
+
+.autocmplt-list-item {
+  border-top: solid 1px #aae;
+  border-radius: 0 0 5px 5px;
+  padding: 2px 6px;
+  background: #f5f5ff;
+}
+
+.autocmplt-list-item:hover {
+  background: #ddf;
+  cursor: default;
+}
