@@ -20,7 +20,8 @@
 }
 
 .container .cell,
-.container .cell input {
+.container .cell .input,
+.container .output-json {
   font: 14px Arial;
 }
 
@@ -28,7 +29,7 @@
   position: relative;
 }
 
-.container .cell input {
+.container .cell .input {
   position: absolute;
   top: 0;
   left: 0;
@@ -37,5 +38,17 @@
   padding: 0;
   margin: 0;
   border: none;
-  outline: none;
+  background: #ddf;
+}
+
+.container .cell .input,
+.container .cell .input:focus {
+  outline: solid 7px #ddf;
+  outline-offset: 0;
+}
+
+.container .output-json {
+  margin-top: 14px;
+  box-sizing: border-box;
+  width: 100%;
 }
