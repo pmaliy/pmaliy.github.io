@@ -1,5 +1,5 @@
-import unflatten from 'unflatten'
-import { get } from '/js/jsonRequest';
+import unflatten from 'unflatten.js'
+import { get } from '/js/jsonRequest.js';
 
 get('data/sample.json')
 	.then(data => unflatten(data))
