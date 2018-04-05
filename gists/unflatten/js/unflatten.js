@@ -1,6 +1,6 @@
 export default unflatten;
 
-function unflatten(arr) => {
+function unflatten(arr) {
   let map = {};
   return arr.reduce((r, el) => {
     map[el.id] = map[el.id] || [];

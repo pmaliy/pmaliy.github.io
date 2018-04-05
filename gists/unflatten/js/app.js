@@ -1,4 +1,4 @@
-import unflatten from 'unflatten.js'
+import unflatten from './unflatten.js'
 import { get } from '/js/jsonRequest.js';
 
 get('data/sample.json')
