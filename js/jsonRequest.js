@@ -1,4 +1,6 @@
 export default { get, post };
+export get;
+export post;
 
 function get(url, init) {
 	return fetch(url, init).then(response => response.json());
