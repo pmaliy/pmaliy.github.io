@@ -1,3 +1,4 @@
+import unflatten from 'unflatten'
 import { get } from '/js/jsonRequest';
 
 get('data/sample.json')
